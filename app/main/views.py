@@ -1,6 +1,6 @@
 from flask import render_template,request,redirect,url_for,abort
 from . import main
-from ..models import User
+from ..models import Owners, Assets, Staffs, Routes
 from .forms import OwnerForm,UpdateProfile
 from flask_login import login_required
 from .. import db,photos
