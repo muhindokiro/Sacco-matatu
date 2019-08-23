@@ -1,11 +1,12 @@
 <!--Navbar -->
-<nav class="mb-1 navbar navbar-expand-lg navbar-dark success-color">
+<nav class="navbar navbar-default" role='navigation' style="background-color:#1976d2">
     <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a style="font-size: 24px" class="nav-link" href="/">Home
+          <a style="font-size: 24px" class="" href="/">Home
             <span class="sr-only">(current)</span>
           </a>
+          
         </li>
         <li class="nav-item dropdown">
                 <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
@@ -16,15 +17,52 @@
                 </div>
         </li>
       </ul>
-      <ul class="nav navbar-nav navbar-right">
-        {% if current_user.is_authenticated %}
-        <li><a style="font-size: 17px" href="{{url_for('main.profile',uname=current_user.username)}}">Profile</a></li>
-        <li style="color:white;padding:15px; font-size: 17px;">{{current_user.username}}</li>
-        <li><a style="font-size: 24px; color: white;" href="{{url_for('auth.logout')}}">Sign out</a></li>
-        {% else %}
-        <li><a style="font-size: 24px; color: white;" href="{{url_for('auth.login')}}">Sign in</a></li>
-        {%endif%}
-      </ul>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+            {% if current_user.is_authenticated %}
+              {% if current_user.is_admin %}
+                <li id="dashboard_link_admin"><a href="{{ url_for('home.admin_dashboard') }}">Dashboard</a></li>
+                <li id="departments_link"><a href="{{ url_for('admin.list_departments') }}">Departments</a></li>
+                <li id="roles_link"><a href="{{ url_for('admin.list_roles') }}">Roles</a></li>
+                <li id="staffs_link"><a href="{{ url_for('admin.list_staffs') }}">staffs</a></li>
+              {% else %}
+                <li id="dashboard_link_staff"><a href="{{ url_for('home.dashboard') }}">Dashboard</a></li>
+              {% endif %}
+              <li id="logout_link"><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+              <li id="username_greeting"><a><i class="fa fa-user"></i>  Hi, {{ current_user.username }}!</a></li>
+            {% else %}
+              <li id="home_link"><a href="{{ url_for('home.homepage') }}">Home</a></li>
+              <li id="register_link"><a href="{{ url_for('auth.register') }}">Register</a></li>
+              <li id="login_link"><a href="{{ url_for('auth.login') }}">Login</a></li>
+            {% endif %}
+        </ul>
     </div>
+  </div>
 </nav>
-<!--/.Navbar -->
+<div class="wrapper">
+{% block body %}
+{% endblock %}
+<div class="push"></div>
+</div>
+<footer>
+  <div class="container">
+      <div class="row">
+          <div class="col-lg-12">
+              <ul class="list-inline">
+                <li><a href="{{ url_for('home.homepage') }}">Home</a></li>
+                <li class="footer-menu-divider">&sdot;</li>
+                {% if current_user.is_authenticated %}
+                  <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+                {% else %}
+                  <li><a href="{{ url_for('auth.register') }}">Register</a></li>
+                  <li class="footer-menu-divider">&sdot;</li>
+                  <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+                {% endif %}
+              </ul>
+          </div>
+      </div>
+  </div>
+</footer>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</nav>

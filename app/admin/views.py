@@ -3,7 +3,7 @@ from flask import abort, flash, redirect, render_template, url_for
 from flask_login import current_user, login_required
 from ..models import Department, Staffs, Role
 from . import admin
-from forms import StaffAssignForm, RoleForm,DepartmentForm
+from .forms import StaffAssignForm, RoleForm,DepartmentForm
 from .. import db
 
 
