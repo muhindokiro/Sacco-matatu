@@ -1,10 +1,16 @@
 
+from flask import Flask
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from app import db, login_manager
+from app import db, login_manager,admin
 from datetime import datetime
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 
 
+@login_manager.user_loader
+def load_user(user_id):
+    return Staffs.query.get(int(user_id))
 
 class Owners(UserMixin, db.Model):
     __tablename__ = 'owners'
@@ -13,9 +19,9 @@ class Owners(UserMixin, db.Model):
     name = db.Column(db.String(255), index=True)
     phone = db.Column(db.Integer, unique=True)
     email = db.Column(db.String(255), unique=True, index=True)
-    password_hash = db.Column(db.String(255))
     date_added = db.Column(db.DateTime, default=datetime.now)
     asset = db.relationship('Assets', backref='owners', lazy=True)
+   
   
     def save_user(self):
         db.session.add(self)
@@ -51,34 +57,31 @@ class Staffs(UserMixin, db.Model):
     name = db.Column(db.String(255),index = True)
     phone = db.Column(db.Integer,unique = True)
     email = db.Column(db.String(255),unique = True,index = True)
-    password_hash = db.Column(db.String(255))
+    password_hash = db.Column(db.String(255), nullable=False)
     date_added = db.Column(db.DateTime,default=datetime.now)
     staff_no = db.Column(db.Integer,unique = True)
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
-    department_id = db.Column(db.Integer, db.ForeignKey('departments.id'))
+   
     
-
-    @property
-    def password(self):
-        raise AttributeError('You cannot read the password attribute')
-
-    @password.setter
-    def password(self, password):
-        self.password_hash = generate_password_hash(password)
-
-    def verify_password(self,password):
-        return check_password_hash(self.password_hash,password)
-
     def save_staff(self):
         db.session.add(self)
         db.session.commit()
 
+    @property
+    def password(self):
+        raise AttributeError('You cannot read the password attribute')
+    
+    @password.setter
+    def password(self, password):
+        self.password_hash = generate_password_hash(password)
+    
+    def verify_password(self,password):
+       
+        return check_password_hash(self.password_hash,password)
+
     def __repr__(self):
         return 'Staffs{self.name}'
         
-@login_manager.user_loader
-def load_user(user_id):
-    return Staffs.query.get(int(user_id))
 
 
 class Routes(db.Model):
@@ -93,22 +96,6 @@ class Routes(db.Model):
     time = db.Column(db.DateTime,default=datetime.now)
 
 
-
-class Department(db.Model):
-    """
-    Create a Department table
-    """
-
-    __tablename__ = 'departments'
-
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(60), unique=True)
-    description = db.Column(db.String(200))
-    staff = db.relationship('Staffs', backref='department',
-                                lazy='dynamic')
-    def __repr__(self):
-        return 'Department{self.name}'
-
 class Role(db.Model):
     """
     Create a Role table
@@ -119,9 +106,17 @@ class Role(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(60), unique=True)
     description = db.Column(db.String(200))
-    owners = db.relationship('Staffs', backref='role',
+    staff = db.relationship('Staffs', backref='role',
                                 lazy='dynamic')
+   
 
     def __repr__(self):
         return 'Role{self.name}'
     
+    
+
+admin.add_view(ModelView(Owners, db.session))
+admin.add_view(ModelView(Staffs, db.session))
+admin.add_view(ModelView(Role, db.session))
+admin.add_view(ModelView(Assets, db.session))
+admin.add_view(ModelView(Routes, db.session))

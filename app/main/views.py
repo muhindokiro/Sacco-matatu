@@ -6,7 +6,9 @@ from flask_login import login_required,current_user
 from .. import db,photos
 
 
+
 #comment
+
 @main.route('/')
 def index():
     '''
@@ -33,3 +35,4 @@ def admin_dashboard():
         abort(403)
 
     return render_template('admin_dashboard.html', title="Dashboard")
+
