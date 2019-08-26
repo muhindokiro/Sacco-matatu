@@ -9,9 +9,17 @@ from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from flask_admin.contrib.fileadmin import FileAdmin
 import os.path as op
+
+
 @login_manager.user_loader
 def load_user(user_id):
+
+
+
     return Staffs.query.get(int(user_id))
+
+
+
 class Owners(UserMixin, db.Model):
     __tablename__ = 'owners'
     id = db.Column(db.Integer, primary_key=True)
@@ -26,7 +34,11 @@ class Owners(UserMixin, db.Model):
         db.session.add(self)
         db.session.commit()
     def __repr__(self):
+
+
         return f'Owners {self.name}'
+
+
 class Assets(db.Model):
     __tablename__ = 'assets'
     id = db.Column(db.Integer, primary_key=True)
@@ -37,7 +49,12 @@ class Assets(db.Model):
     
     def save_asset(self):
         db.session.add(self)
+
+
+
         db.session.commit()
+
+
 class Staffs(UserMixin, db.Model):
     """
     Create an staff table
@@ -71,7 +88,10 @@ class Staffs(UserMixin, db.Model):
  
     def __repr__(self):
         return 'Staffs{self.name}'
-        
+ 
+
+
+
 class Trips(db.Model):
     __tablename__ = 'routes'
     id = db.Column(db.Integer, primary_key=True)
@@ -83,6 +103,10 @@ class Trips(db.Model):
     time = db.Column(db.DateTime,default=datetime.now)
     driver = db.Column(db.String(70),index = True)
     conductor = db.Column(db.String(70),index = True)
+
+
+
+
 class Roles(db.Model):
     """
     Create a Role table
@@ -95,6 +119,9 @@ class Roles(db.Model):
                                 lazy='dynamic')
    
     def __repr__(self):
+ 
+
+
         return 'Role{self.name}'
 class Controller(ModelView):
     def is_accessible(self):
@@ -105,6 +132,8 @@ class Controller(ModelView):
    
     def not_auth(self):
         return "you are not authorised"
+
+
     
 admin.add_view(ModelView(Owners, db.session))
 admin.add_view(ModelView(Staffs, db.session))
