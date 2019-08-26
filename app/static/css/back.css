@@ -1,0 +1,12 @@
+body{
+    font-family: 'Lora', serif;
+    text-align:center;
+}
+.btn{
+    color:  #1976d2;
+    
+}
+nav a:hover {
+        background-color: #fff;
+        color: black;
+}
