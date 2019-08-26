@@ -5,6 +5,7 @@ from flask_login import UserMixin
 from app import db, login_manager,admin
 from datetime import datetime
 from flask_login import login_required,current_user
+from flask import render_template,request,redirect,url_for,abort
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from flask_admin.contrib.fileadmin import FileAdmin
@@ -13,6 +14,27 @@ import os.path as op
 @login_manager.user_loader
 def load_user(user_id):
     return Staffs.query.get(int(user_id))
+
+
+class Owners(UserMixin, db.Model):
+    __tablename__ = 'owners'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), index=True)
+    phone = db.Column(db.Integer, unique=True)
+    email = db.Column(db.String(255), unique=True, index=True)
+    date_added = db.Column(db.DateTime, default=datetime.now)
+    asset = db.relationship('Assets', backref='owners', lazy=True)
+   
+  
+    def save_user(self):
+        db.session.add(self)
+        db.session.commit()
+    def __repr__(self):
+        return f'Owners {self.name}'
+
+class Assets(db.Model):
+    __tablename__ = 'assets'
+
 class Owners(UserMixin, db.Model):
     __tablename__ = 'owners'
 
@@ -34,6 +56,7 @@ class Owners(UserMixin, db.Model):
 
 class Assets(db.Model):
     __tablename__ = 'assets'
+
 
     id = db.Column(db.Integer, primary_key=True)
     number_plate = db.Column(db.String(10), index=True)
@@ -67,6 +90,7 @@ class Staffs(UserMixin, db.Model):
     def save_staff(self):
         db.session.add(self)
         db.session.commit()
+        
 
     @property
     def password(self):
@@ -80,6 +104,10 @@ class Staffs(UserMixin, db.Model):
        
          return check_password_hash(self.password_hash,password)
  
+
+    def __repr__(self):
+        return 'Staffs{self.name}'
+
 
     def __repr__(self):
         return 'Staffs{self.name}'
@@ -112,14 +140,46 @@ class Roles(db.Model):
                                 lazy='dynamic')
    
 
+
+class Routes(db.Model):
+    __tablename__ = 'routes'
+    id = db.Column(db.Integer, primary_key=True)
+    number_plate = db.Column(db.Integer, db.ForeignKey('assets.id'))
+    route = db.Column(db.String(255),index = True)
+    passengers = db.Column(db.Integer,unique = True)
+    fare = db.Column(db.String(10),unique = True)
+    station = db.Column(db.String(255),index = True)
+    time = db.Column(db.DateTime,default=datetime.now)
+        
+class Roles(db.Model):
+    """
+    Create a Role table
+    """
+    __tablename__ = 'roles'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(60), unique=True)
+    description = db.Column(db.String(200))
+    staff = db.relationship('Staffs', backref='roles',
+                                lazy='dynamic')
+   
     def __repr__(self):
         return 'Role{self.name}'
 class Controller(ModelView):
     def is_accessible(self):
+
+        if  current_user.is_admin == True:
+            return current_user.is_authenticated
+        else:
+            return abort(403)
+   
+    def not_auth(self):
+        return "you are not authorised"
+
         return current_user.is_authenticated
     def not_auth(self):
         return "you are not authorised"
     
+
 
 
 admin.add_view(Controller(Owners, db.session))
