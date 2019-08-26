@@ -86,3 +86,25 @@ class Routes(db.Model):
     station = db.Column(db.String(255),index = True)
     time = db.Column(db.DateTime,default=datetime.now)
         
+class Roles(db.Model):
+    """
+    Create a Role table
+    """
+    __tablename__ = 'roles'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(60), unique=True)
+    description = db.Column(db.String(200))
+    staff = db.relationship('Staffs', backref='roles',
+                                lazy='dynamic')
+   
+    def __repr__(self):
+        return 'Role{self.name}'
+class Controller(ModelView):
+    def is_accessible(self):
+        if  current_user.is_admin == True:
+            return current_user.is_authenticated
+        else:
+            return abort(403)
+   
+    def not_auth(self):
+        return "you are not authorised"
