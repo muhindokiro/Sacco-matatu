@@ -104,6 +104,15 @@ class Trips(db.Model):
     driver = db.Column(db.String(70),index = True)
     conductor = db.Column(db.String(70),index = True)
 
+    def __init__(self,route,passengers, fare, station, driver, conductor):
+        
+        self.route = route
+        self.passengers = passengers
+        self.fare = fare
+        self.station = station
+        self.driver = driver
+        self.conductor = conductor
+
 
 
 
