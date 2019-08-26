@@ -19,4 +19,14 @@ def index():
     return render_template('index.html',title = title)
 
 
+@main.route('/create_admin',methods = ["GET","POST"])
+def create_admin():
+    # prevent non-admins from accessing the page
+    if request.method =="POST":
+        new_staff = Staffs(email=request.form['email'],password=request.form['password'],is_admin = True )
+        db.session.add(new_staff)
+        db.session.commit()
+        return redirect(url_for('auth.login'))
+
+    return render_template('auth/admin_signup.html')
 
