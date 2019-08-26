@@ -56,22 +56,35 @@ AssetsForm.submit = SubmitField('Create')
 
 
 
-class RoutesForm(FlaskForm):
+# class RoutesForm(FlaskForm):
 
-    # number_plate = StringField('Number Plate',validators=[Required()])
-    route = StringField('Route',validators=[Required()])
-    passengers = StringField('Passengers', validators=[Required()])
-    fare = StringField('Fare',validators=[Required()])
-    station = StringField('Station',validators=[Required()])
-    driver = StringField('Driver',validators=[Required()])
-    conductor = StringField('Conductor',validators=[Required()])
-    submit = SubmitField('Submit')
+#     # number_plate = StringField('Number Plate',validators=[Required()])
+#     route = StringField('Route',validators=[Required()])
+#     passengers = StringField('Passengers', validators=[Required()])
+#     fare = StringField('Fare',validators=[Required()])
+#     station = StringField('Station',validators=[Required()])
+#     driver = StringField('Driver',validators=[Required()])
+#     conductor = StringField('Conductor',validators=[Required()])
+#     submit = SubmitField('Submit')
 
 
-class StaffsForm(FlaskForm):
+exclude_properties = ['time']
+RoutesForm = model_form(model=Trips,
+        base_class=Form,
+        db_session=db.session,
+        exclude=exclude_properties)
+RoutesForm.submit = SubmitField('Create')
 
-    name = StringField('Full Name',validators=[Required()])
-    phone = StringField('Phone', validators=[Required()])
-    email = StringField('Email',validators=[Required()])
-    staff_no = StringField('Staff No:',validators=[Required()]) 
-    submit = SubmitField('Submit')
+
+
+
+
+# class Trips(db.Model):
+#     __tablename__ = 'routes'
+#     id = db.Column(db.Integer, primary_key=True)
+#     number_plate = db.Column(db.Integer, db.ForeignKey('assets.id'))
+#     route = db.Column(db.String(255),index = True)
+#     passengers = db.Column(db.Integer,unique = True)
+#     fare = db.Column(db.String(10),unique = True)
+#     station = db.Column(db.String(255),index = True)
+#     time = db.Column(db.DateTime,default=datetime.now)

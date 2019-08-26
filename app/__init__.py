@@ -21,7 +21,7 @@ def create_app(config_name):
     app.secret_key = '!so$ku2h!w+kzgh4aq-@70=5^$h7m(4pcc$+zccs_*)0_8vyi3'
     # Creating the app   configurations
     app.config.from_object(config_options[config_name])
-    app.config["FLASK_ADMIN_SWATCH"] = "cerulean"
+    app.config["FLASK_ADMIN_SWATCH"] = "united"
     # Initializing flask extensions
     bootstrap.init_app(app)
     db.init_app(app)

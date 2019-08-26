@@ -81,6 +81,8 @@ class Trips(db.Model):
     fare = db.Column(db.String(10),unique = True)
     station = db.Column(db.String(255),index = True)
     time = db.Column(db.DateTime,default=datetime.now)
+    driver = db.Column(db.String(70),index = True)
+    conductor = db.Column(db.String(70),index = True)
 class Roles(db.Model):
     """
     Create a Role table

@@ -1,7 +1,7 @@
 from flask import render_template,request,redirect,url_for,abort
 from . import main
 from ..models import Owners, Assets, Staffs, Trips
-from .forms import OwnersForm, AssetsForm, RoutesForm, StaffsForm
+from .forms import OwnersForm, AssetsForm, RoutesForm
 from flask_login import login_required
 from .. import db,photos
 
@@ -24,14 +24,14 @@ def trip():
     routes_form = RoutesForm()
     
 
-    if  routes_form.validate_on_submit():
-        # number_plate =  routes_form.number_plate.data
+    if  routes_form.validate_on_submit():        
         route =  routes_form.route.data
         passengers =  routes_form.passengers.data
         fare =  routes_form.fare.data
         station =  routes_form.station.data
         driver =  routes_form.driver.data
         conductor =  routes_form.conductor.data
+        # number_plate =  routes_form.number_plate.data
         index = Trips(route,passengers, fare, station, driver, conductor)
         index.save_trip()
         return redirect(url_for('main.trip'))
