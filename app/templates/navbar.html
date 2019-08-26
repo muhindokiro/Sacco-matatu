@@ -9,8 +9,10 @@
         <span class=icon-bar></span>
       </button>
 
-      <a <span class="btn" href="/">Home</span></a>
+      <a <span  href="/">Home</span></a>
     </div>
+
+    <ul  style="list-style: none;">
     {% if current_user.is_admin == True%}
       <li><a href="/admin">Admin</a></li>
       </ul>
@@ -21,11 +23,11 @@
       {% if current_user.is_authenticated %}
       <ul style="list-style: none;">
       <li> 
-        <a>{{current_user.name}}</a>
-        <a class="btn" href="{{url_for('auth.logout')}}">Sign out</a>
+        <a>{{current_user.name}}</a>&nbsp;&nbsp;
+        <a href="{{url_for('auth.logout')}}">Sign out</a>
       </li>
       {% else %}
-      <li><a class="btn" href="{{url_for('auth.login')}}">Sign in</a></li>
+      <li><a  href="{{url_for('auth.login')}}">Sign in</a></li>
       {%endif%}
       </div>
     </div>

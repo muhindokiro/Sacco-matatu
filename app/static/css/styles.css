@@ -6,6 +6,7 @@ body{
     color:  #1976d2;
     
 }
-nav {
-    color: #ffffff;
+nav a:hover {
+        background-color: #fff;
+        color: black;
 }
