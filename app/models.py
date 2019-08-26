@@ -59,7 +59,7 @@ class Staffs(UserMixin, db.Model):
     name = db.Column(db.String(255),index = True)
     phone = db.Column(db.Integer,unique = True)
     email = db.Column(db.String(255),unique = True,index = True)
-    password_hash = db.Column(db.String(255), nullable=False)
+    password_hash = db.Column(db.String(75), nullable=False)
     date_added = db.Column(db.DateTime,default=datetime.now)
     staff_no = db.Column(db.Integer,unique = True)
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))

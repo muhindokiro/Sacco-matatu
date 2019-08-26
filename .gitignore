@@ -1,5 +1,6 @@
 virtual/
 *.pyc
+.vscode/
 <<<<<<< HEAD
 instance
 =======

@@ -11,23 +11,19 @@
 
       <a <span class="btn" href="/">Home</span></a>
     </div>
-    <li class="nav-item dropdown">
-      <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-        <a style="font-size: 15px" class="dropdown-item" href="/football"></a>
-        <a style="font-size: 15px" class="dropdown-item" href="/cycling"></a>
-        <a style="font-size: 15px" class="dropdown-item" href="/rugby"></a>
-        <a style="font-size: 15px" class="dropdown-item" href="/basketball"></a>
-      </div>
-    </li>
-    </ul>
+    {% if current_user.is_admin == True%}
+      <li><a href="/admin">Admin</a></li>
+      </ul>
+      {% else %}
+      {%endif%}
+  
     <div class="nav navbar-nav navbar-right">
       {% if current_user.is_authenticated %}
-      <ul style="list-style: none;"></ul>
+      <ul style="list-style: none;">
       <li> 
         <a>{{current_user.name}}</a>
         <a class="btn" href="{{url_for('auth.logout')}}">Sign out</a>
       </li>
-      </ul>
       {% else %}
       <li><a class="btn" href="{{url_for('auth.login')}}">Sign in</a></li>
       {%endif%}

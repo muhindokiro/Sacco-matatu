@@ -1,7 +1,7 @@
 from flask import render_template,redirect,url_for,flash,request
 from . import auth
 from ..models import Owners, Assets, Staffs, Routes,Roles
-from .forms import LoginForm,RegistrationForm
+from .forms import LoginForm,RegistrationForm,AdminForm
 from .. import db
 from flask_login import login_user,logout_user,login_required
 from ..email import mail_message
@@ -26,22 +26,26 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         staff = Staffs(email = form.email.data, name = form.name.data,password = form.password.data)
+         
+        session['anonymous_user_id'] = staff.id
         db.session.add(staff)
         db.session.commit()
 
         return redirect(url_for('auth.login'))
     title = "New Account"
     return render_template('auth/register.html',registration_form = form, title=title)
+
 @auth.route('/create_admin',methods = ["GET","POST"])
 def create_admin():
     # prevent non-admins from accessing the page
-    if request.method =="POST":
-        new_staff = Staffs(email=request.form['email'],password=request.form['password'],is_admin = True )
-        db.session.add(new_staff)
+    form = AdminForm()
+    if form.validate_on_submit():
+        staff = Staffs(email = form.email.data, name = form.name.data,password = form.password.data,is_admin = True )
+        db.session.add(staff)
         db.session.commit()
         return redirect(url_for('auth.login'))
 
-    return render_template('auth/admin_signup.html')
+    return render_template('auth/admin_signup.html',form=form)
 
 @auth.route('/logout')
 @login_required
