@@ -41,3 +41,38 @@ class Assets(db.Model):
     def save_asset(self):
         db.session.add(self)
         db.session.commit()
+
+class Staffs(UserMixin, db.Model):
+    """
+    Create an staff table
+    """
+    __tablename__ = 'staffs'
+   
+    id = db.Column(db.Integer,primary_key = True)
+    name = db.Column(db.String(255),index = True)
+    phone = db.Column(db.Integer,unique = True)
+    email = db.Column(db.String(255),unique = True,index = True)
+    password_hash = db.Column(db.String(255), nullable=False)
+    date_added = db.Column(db.DateTime,default=datetime.now)
+    staff_no = db.Column(db.Integer,unique = True)
+    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+    is_admin =db.Column(db.Boolean, default=False)
+    
+    def save_staff(self):
+        db.session.add(self)
+        db.session.commit()
+    @property
+    def password(self):
+        raise AttributeError('You cannot read the password attribute')
+    
+    @password.setter
+    def password(self, password):
+        self.password_hash = generate_password_hash(password)
+    
+    def verify_password(self,password):
+       
+         return check_password_hash(self.password_hash,password)
+ 
+    def __repr__(self):
+        return 'Staffs{self.name}'
+        
