@@ -5,6 +5,7 @@ from flask_login import UserMixin
 from app import db, login_manager,admin
 from datetime import datetime
 from flask_login import login_required,current_user
+from flask import render_template,request,redirect,url_for,abort
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from flask_admin.contrib.fileadmin import FileAdmin
@@ -116,7 +117,11 @@ class Roles(db.Model):
         return 'Role{self.name}'
 class Controller(ModelView):
     def is_accessible(self):
-        return current_user.is_authenticated
+        if  current_user.is_admin == True:
+            return current_user.is_authenticated
+        else:
+            return abort(403)
+   
     def not_auth(self):
         return "you are not authorised"
     
