@@ -1,11 +1,10 @@
 import os
 
 class Config:
-
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2:'
-    SECRET_KEY = os.environ.get('SECRET_KEY')
-    UPLOADED_PHOTOS_DEST ='app/static/photos'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2:'
+    UPLOADED_PHOTOS_DEST ='app/static/photos'
+    
 
     #     email configurations
     MAIL_SERVER = 'smtp.googlemail.com'
@@ -21,10 +20,10 @@ class ProdConfig(Config):
     pass
 
 class TestConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2:'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://mango:mango@localhost/sacco_test'
 
 class DevConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2:'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://mango:mango@localhost/sacco_test'
     DEBUG = True
 
 config_options = {
