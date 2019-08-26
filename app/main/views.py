@@ -1,19 +1,52 @@
 from flask import render_template,request,redirect,url_for,abort
 from . import main
-from ..models import Owners, Assets, Staffs, Routes
-from .forms import OwnerForm,UpdateProfile
+from ..models import Owners, Assets, Staffs, Trips
+from .forms import OwnersForm, AssetsForm, RoutesForm, StaffsForm
 from flask_login import login_required
 from .. import db,photos
 
 
+
 #comment
-@main.route('/')
+@main.route('/', methods = ['GET','POST'])
 def index():
+
+    
+    title = 'Home'
+    return render_template('index.html',title = title)
+
+
+
+
+@main.route('/trip', methods = ['GET','POST'])
+def trip():
+
+    routes_form = RoutesForm()
+    
+
+    if  routes_form.validate_on_submit():
+        # number_plate =  routes_form.number_plate.data
+        route =  routes_form.route.data
+        passengers =  routes_form.passengers.data
+        fare =  routes_form.fare.data
+        station =  routes_form.station.data
+        driver =  routes_form.driver.data
+        conductor =  routes_form.conductor.data
+        index = Trips(route,passengers, fare, station, driver, conductor)
+        index.save_trip()
+        return redirect(url_for('main.trip'))
     '''
     View root page function that returns the index page and its data
     '''
-    title = 'Home'
-    return render_template('index.html',title = title)
+    title = 'Routes'
+    return render_template('trip.html',title = title, routes_form = routes_form)
+
+
+
+
+
+
+
 
 @main.route('/user/<uname>')
 def profile(uname):

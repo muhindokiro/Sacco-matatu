@@ -3,7 +3,8 @@ import os
 class Config:
 
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2:'
-    SECRET_KEY = os.environ.get('SECRET_KEY')
+    # SECRET_KEY = os.environ.get('SECRET_KEY')
+    SECRET_KEY = 'abcdef'
     UPLOADED_PHOTOS_DEST ='app/static/photos'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
@@ -24,7 +25,7 @@ class TestConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://phirifo:1234@localhost/sacco_test'
 
 class DevConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://phirifo:1234@localhost/sacco'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://phirifo:1234@localhost/saccoadmintest2'
     DEBUG = True
 
 config_options = {
@@ -32,3 +33,9 @@ config_options = {
 'production':ProdConfig,
 'test':TestConfig
 }
+
+
+# SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://phirifo:1234@localhost/sacco2'
+
+# class DevConfig(Config):
+#     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://phirifo:1234@localhost/saccoadmintest
