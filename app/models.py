@@ -4,14 +4,15 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from app import db, login_manager,admin
 from datetime import datetime
+from flask_login import login_required,current_user
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
-
+from flask_admin.contrib.fileadmin import FileAdmin
+import os.path as op
 
 @login_manager.user_loader
 def load_user(user_id):
     return Staffs.query.get(int(user_id))
-
 class Owners(UserMixin, db.Model):
     __tablename__ = 'owners'
 
@@ -61,7 +62,7 @@ class Staffs(UserMixin, db.Model):
     date_added = db.Column(db.DateTime,default=datetime.now)
     staff_no = db.Column(db.Integer,unique = True)
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
-   
+    is_admin =db.Column(db.Boolean, default=False)
     
     def save_staff(self):
         db.session.add(self)
@@ -77,7 +78,8 @@ class Staffs(UserMixin, db.Model):
     
     def verify_password(self,password):
        
-        return check_password_hash(self.password_hash,password)
+         return check_password_hash(self.password_hash,password)
+ 
 
     def __repr__(self):
         return 'Staffs{self.name}'
@@ -96,7 +98,7 @@ class Routes(db.Model):
     time = db.Column(db.DateTime,default=datetime.now)
 
 
-class Role(db.Model):
+class Roles(db.Model):
     """
     Create a Role table
     """
@@ -106,17 +108,24 @@ class Role(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(60), unique=True)
     description = db.Column(db.String(200))
-    staff = db.relationship('Staffs', backref='role',
+    staff = db.relationship('Staffs', backref='roles',
                                 lazy='dynamic')
    
 
     def __repr__(self):
         return 'Role{self.name}'
-    
+class Controller(ModelView):
+    def is_accessible(self):
+        return current_user.is_authenticated
+    def not_auth(self):
+        return "you are not authorised"
     
 
-admin.add_view(ModelView(Owners, db.session))
-admin.add_view(ModelView(Staffs, db.session))
-admin.add_view(ModelView(Role, db.session))
-admin.add_view(ModelView(Assets, db.session))
-admin.add_view(ModelView(Routes, db.session))
+
+admin.add_view(Controller(Owners, db.session))
+admin.add_view(Controller(Staffs, db.session))
+admin.add_view(Controller(Roles, db.session))
+admin.add_view(Controller(Assets, db.session))
+admin.add_view(Controller(Routes, db.session))
+path = op.join(op.dirname(__file__), 'static')
+admin.add_view(FileAdmin(path, '/static/', name='Static Files'))

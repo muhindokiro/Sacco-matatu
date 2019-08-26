@@ -1,9 +1,10 @@
 from flask import render_template,request,redirect,url_for,abort
 from . import main
-from ..models import Owners, Assets, Staffs, Routes
+from ..models import Owners, Assets, Staffs, Routes,Roles
 from .forms import OwnerForm,UpdateProfile
 from flask_login import login_required,current_user
 from .. import db,photos
+from flask_admin.contrib.sqla import ModelView
 
 
 
@@ -14,7 +15,7 @@ def index():
     '''
     View root page function that returns the index page and its data
     '''
-    title = 'Home'
+    title = 'Sacco_Matatu_project'
     return render_template('index.html',title = title)
 
 
@@ -36,3 +37,8 @@ def admin_dashboard():
 
     return render_template('admin_dashboard.html', title="Dashboard")
 
+class Controller(ModelView):
+    def is_accessible(self):
+        return current_user.is_authenticated
+    def not_auth(self):
+        return "you are not authorised"
