@@ -75,4 +75,14 @@ class Staffs(UserMixin, db.Model):
  
     def __repr__(self):
         return 'Staffs{self.name}'
+
+class Routes(db.Model):
+    __tablename__ = 'routes'
+    id = db.Column(db.Integer, primary_key=True)
+    number_plate = db.Column(db.Integer, db.ForeignKey('assets.id'))
+    route = db.Column(db.String(255),index = True)
+    passengers = db.Column(db.Integer,unique = True)
+    fare = db.Column(db.String(10),unique = True)
+    station = db.Column(db.String(255),index = True)
+    time = db.Column(db.DateTime,default=datetime.now)
         
