@@ -108,3 +108,11 @@ class Controller(ModelView):
    
     def not_auth(self):
         return "you are not authorised"
+
+admin.add_view(Controller(Owners, db.session))
+admin.add_view(Controller(Staffs, db.session))
+admin.add_view(Controller(Roles, db.session))
+admin.add_view(Controller(Assets, db.session))
+admin.add_view(Controller(Routes, db.session))
+path = op.join(op.dirname(__file__), 'static')
+admin.add_view(FileAdmin(path, '/static/', name='Static Files'))
