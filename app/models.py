@@ -62,7 +62,6 @@ class Staffs(UserMixin, db.Model):
     password_hash = db.Column(db.String(75), nullable=False)
     date_added = db.Column(db.DateTime,default=datetime.now)
     staff_no = db.Column(db.Integer,unique = True)
-    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     is_admin =db.Column(db.Boolean, default=False)
     
     def save_staff(self):
@@ -99,22 +98,7 @@ class Routes(db.Model):
     time = db.Column(db.DateTime,default=datetime.now)
 
 
-class Roles(db.Model):
-    """
-    Create a Role table
-    """
 
-    __tablename__ = 'roles'
-
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(60), unique=True)
-    description = db.Column(db.String(200))
-    staff = db.relationship('Staffs', backref='roles',
-                                lazy='dynamic')
-   
-
-    def __repr__(self):
-        return 'Role{self.name}'
 class Controller(ModelView):
     def is_accessible(self):
         if  current_user.is_admin == True:
@@ -129,7 +113,6 @@ class Controller(ModelView):
 
 admin.add_view(Controller(Owners, db.session))
 admin.add_view(Controller(Staffs, db.session))
-admin.add_view(Controller(Roles, db.session))
 admin.add_view(Controller(Assets, db.session))
 admin.add_view(Controller(Routes, db.session))
 path = op.join(op.dirname(__file__), 'static')

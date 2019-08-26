@@ -8,5 +8,10 @@
 {% block body %}
 {{ super() }}
     <h1>Sacco-matatu adminstration system</h1>
+
+    <h2> you are logged in as {{current_user.name}}</h2>
+    <br>
+    <a href="/"">Front-end</a>
+    
     
 {% endblock %}
