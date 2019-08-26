@@ -13,7 +13,7 @@ import os.path as op
 @login_manager.user_loader
 def load_user(user_id):
     return Staffs.query.get(int(user_id))
-    
+
 class Owners(UserMixin, db.Model):
     __tablename__ = 'owners'
     id = db.Column(db.Integer, primary_key=True)
@@ -29,3 +29,15 @@ class Owners(UserMixin, db.Model):
         db.session.commit()
     def __repr__(self):
         return f'Owners {self.name}'
+
+class Assets(db.Model):
+    __tablename__ = 'assets'
+    id = db.Column(db.Integer, primary_key=True)
+    number_plate = db.Column(db.String(10), index=True)
+    route = db.relationship("Routes",backref = "assets",lazy = True)
+    owner_id = db.Column(db.Integer, db.ForeignKey('owners.id'))
+    
+    
+    def save_asset(self):
+        db.session.add(self)
+        db.session.commit()
