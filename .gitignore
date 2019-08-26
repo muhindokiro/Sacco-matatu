@@ -1,8 +1,6 @@
-virtual/
-*.pyc
+
+virtualenv/
 .vscode/
-<<<<<<< HEAD
-instance
-=======
+*.pyc
 instance/
->>>>>>> be0d2fa41c66227476a092e4ae804087862483c3
+

@@ -14,9 +14,10 @@ import os.path as op
 @login_manager.user_loader
 def load_user(user_id):
     return Staffs.query.get(int(user_id))
+
+
 class Owners(UserMixin, db.Model):
     __tablename__ = 'owners'
-
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), index=True)
     phone = db.Column(db.Integer, unique=True)
@@ -28,13 +29,13 @@ class Owners(UserMixin, db.Model):
     def save_user(self):
         db.session.add(self)
         db.session.commit()
-
     def __repr__(self):
         return f'Owners {self.name}'
 
 
 class Assets(db.Model):
     __tablename__ = 'assets'
+
 
     id = db.Column(db.Integer, primary_key=True)
     number_plate = db.Column(db.String(10), index=True)
@@ -67,6 +68,7 @@ class Staffs(UserMixin, db.Model):
     def save_staff(self):
         db.session.add(self)
         db.session.commit()
+        
 
     @property
     def password(self):
@@ -83,6 +85,9 @@ class Staffs(UserMixin, db.Model):
 
     def __repr__(self):
         return 'Staffs{self.name}'
+
+
+ 
         
 
 
@@ -99,16 +104,18 @@ class Routes(db.Model):
 
 
 
+
 class Controller(ModelView):
     def is_accessible(self):
         if  current_user.is_admin == True:
             return current_user.is_authenticated
         else:
             return abort(403)
-   
+
     def not_auth(self):
         return "you are not authorised"
     
+
 
 
 admin.add_view(Controller(Owners, db.session))
