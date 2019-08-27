@@ -54,8 +54,8 @@ def logout():
     flash('You have been successfully logged out')
     return redirect(url_for("main.index"))
 
-@auth.route('/reset_password',methods  = ['GET','POST'])
+@auth.route('/reset_password',methods = ['GET','POST'])
 def reset_request():
     form = RequestResetForm()
-    return render_template('reset_request.html' title = "reset password",form=form)
+    return render_template('reset_request.html', title = "reset password",request_form=form)
 
