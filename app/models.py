@@ -77,7 +77,7 @@ class Staffs(UserMixin, db.Model):
     
     @staticmethod
     def verify_reset_token(token):
-        s=Serializer(app.config['SECRET_KEY'],)
+        s=Serializer(app.config['SECRET_KEY'])
         try:
             user_id = s.loads(token)['user_id']
         except:
