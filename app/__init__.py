@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 from config import config_options
 from flask_bootstrap import Bootstrap
@@ -25,6 +26,11 @@ def create_app(config_name):
     # Creating the app   configurations
     app.config.from_object(config_options[config_name])
     app.config["FLASK_ADMIN_SWATCH"] = "cerulean"
+    app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
+    app.config['MAIL_PORT'] = 587
+    app.config['MAIL_USE_TLS'] = True
+    app.config['MAIL_USERNAME'] = os.environ.get('EMAIL_USER')
+    app.config['MAIL_PASSWORD'] = os.environ.get('EMAIL_PASS')
 
     # Initializing flask extensions
     bootstrap.init_app(app)

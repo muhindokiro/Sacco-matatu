@@ -3,7 +3,6 @@ from wtforms import StringField,PasswordField,BooleanField,SubmitField
 from wtforms.validators import Required,Email,EqualTo
 from ..models import Owners, Assets, Staffs, Routes
 from wtforms import ValidationError
-
 from ..models import Staffs
 
 class RegistrationForm(FlaskForm):
