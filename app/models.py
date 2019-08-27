@@ -11,6 +11,7 @@ from flask_admin.contrib.sqla import ModelView
 from flask_admin.contrib.fileadmin import FileAdmin
 import os.path as op
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+import app
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -71,17 +72,18 @@ class Staffs(UserMixin, db.Model):
         db.session.commit()
     
     def get_reset_token(self,expires_sec=1800):
-        s=Serializer(app.coconfig['SECRET_KEY'],expires_sec)
+        s=Serializer(app.config['SECRET_KEY'], expires_sec)
         return s.dumbs({'user_id':self.id}).decode('utf-8')
     
     @staticmethod
     def verify_reset_token(token):
-        s=Serializer(app.coconfig['SECRET_KEY'])
+        s=Serializer(app.config['SECRET_KEY'],)
         try:
-            user_id = s.loads(token)[' user_id']
+            user_id = s.loads(token)['user_id']
         except:
             return None
         return Staffs.query.get(user_id)
+    
     @property
     def password(self):
         raise AttributeError('You cannot read the password attribute')

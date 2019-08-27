@@ -2,6 +2,7 @@ import os
 
 class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SECRET_KEY = "odongo"
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2:'
     UPLOADED_PHOTOS_DEST ='app/static/photos'
     
