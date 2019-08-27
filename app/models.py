@@ -11,7 +11,6 @@ from flask_admin.contrib.sqla import ModelView
 from flask_admin.contrib.fileadmin import FileAdmin
 import os.path as op
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-import app
 
 @login_manager.user_loader
 def load_user(user_id):
