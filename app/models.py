@@ -10,6 +10,7 @@ from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from flask_admin.contrib.fileadmin import FileAdmin
 import os.path as op
+
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 @login_manager.user_loader

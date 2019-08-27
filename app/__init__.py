@@ -20,10 +20,12 @@ photos = UploadSet('photos', IMAGES)
 mail = Mail()
 admin = Admin(name='Sacco-admin',template_mode="bootstrap3")
 
+
 def create_app(config_name):
 
     app = Flask(__name__)
     # Creating the app   configurations
+    app.config[" SECRET_KEY "] = "odongo"
     app.config.from_object(config_options[config_name])
     app.config["FLASK_ADMIN_SWATCH"] = "cerulean"
     app.config['MAIL_SERVER'] = 'smtp.googlemail.com'

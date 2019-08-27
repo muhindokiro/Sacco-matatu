@@ -85,5 +85,9 @@ def reset_token(token):
     if staff is None:
         flash('that is an invalid or expired token', 'warning')
         return redirect(url_for('reset_request'))
-    form = PasswordResetForm
+    form = PasswordResetForm()
+    if form.validate_on_submit():
+        staff = Staffs(password = form.password.data)
+        db.session.commit()
+        return redirect(url_for('auth.login'))
     return render_template('auth/reset_token.html', title = "reset password",form=form)
