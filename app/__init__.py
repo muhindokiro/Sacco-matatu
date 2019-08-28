@@ -30,9 +30,6 @@ def create_app(config_name):
     app.config[" SECRET_KEY "] = "odongo"
     app.config.from_object(config_options[config_name])
     app.config["FLASK_ADMIN_SWATCH"] = "cerulean"
-    app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-    app.config['MAIL_PORT'] = 587
-    app.config['MAIL_USE_TLS'] = True
     app.config['MAIL_SERVER'] =os.environ.get('MAIL_SERVER','smtp.gmail.com')
     app.config['MAIL_SENDER'] =os.environ.get('MAIL_SENDER', 'juniormango2015@gmail.com>')
     app.config['MAIL_PORT'] =int(os.environ.get('MAIL_PORT',         '465'))
