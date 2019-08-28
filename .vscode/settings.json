@@ -1,0 +1,4 @@
+{
+    "python.pythonPath": "/home/mango/Documents/News/virtual/bin/python",
+    "python.formatting.provider": "black"
+}
