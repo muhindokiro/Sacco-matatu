@@ -41,8 +41,12 @@ def create_admin():
     form = AdminForm()
     if form.validate_on_submit():
         staff = Staffs(email = form.email.data, name = form.name.data,password = form.password.data,is_admin = True )
-        staff.save_staff()
-       
+        db.session.add(staff)
+        db.session.commit()
+
+        mail_message("Welcome to Sacco-matatu","email/signup",staff.email,staff=staff)
+
+        
         return redirect(url_for('auth.login'))
 
     return render_template('auth/admin_signup.html',form=form)
