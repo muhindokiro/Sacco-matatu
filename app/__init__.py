@@ -3,11 +3,13 @@ from flask import Flask
 from config import config_options
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
+
 from flask_login import LoginManager
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 from flask_mail import Mail
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
+
 
 
 login_manager = LoginManager()
@@ -28,11 +30,16 @@ def create_app(config_name):
     app.config[" SECRET_KEY "] = "odongo"
     app.config.from_object(config_options[config_name])
     app.config["FLASK_ADMIN_SWATCH"] = "cerulean"
-    app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
+    app.config['MAIL_SERVER'] = 'smtp.gmail.com'
     app.config['MAIL_PORT'] = 587
     app.config['MAIL_USE_TLS'] = True
-    app.config['MAIL_USERNAME'] = os.environ.get('EMAIL_USER')
-    app.config['MAIL_PASSWORD'] = os.environ.get('EMAIL_PASS')
+    app.config['MAIL_SERVER'] =os.environ.get('MAIL_SERVER','smtp.gmail.com')
+    app.config['MAIL_SENDER'] =os.environ.get('MAIL_SENDER', 'juniormango2015@gmail.com>')
+    app.config['MAIL_PORT'] =int(os.environ.get('MAIL_PORT',         '465'))
+    app.config['MAIL_USE_TLS'] = int(os.environ.get('MAIL_USE_TLS',  False))
+    app.config['MAIL_USE_SSL' ]=int(os.environ.get('MAIL_USE_SSL',  True))
+    app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
+    app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
 
     # Initializing flask extensions
     bootstrap.init_app(app)

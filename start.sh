@@ -1,8 +1,8 @@
 
 
-export SECRET_KEY='!so$ku2h!w+kzgh4aq-@70=5^$h7m(4pcc$+zccs_*)0_8vyi3'
-export SQLALCHEMY_DATABASE_URI='DATABASE_URL'
-export MAIL_PASSWORD=''
-
+export SECRET_KEY='odongo'
+export SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://mango:mango@localhost/sacco_test'
+export MAIL_USERNAME='juniormango2015@gmail.com'
+export MAIL_PASSWORD='hmladlpbpvcyluyv'
 
 python3.6 manage.py server

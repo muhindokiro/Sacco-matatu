@@ -27,10 +27,10 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         staff = Staffs(email = form.email.data, name = form.name.data,password = form.password.data)
-         
         db.session.add(staff)
         db.session.commit()
 
+        mail_message("Welcome to Sacco-matatu","email/signup",staff.email,staff=staff)
         return redirect(url_for('auth.login'))
     title = "New Account"
     return render_template('auth/register.html',registration_form = form, title=title)
@@ -41,8 +41,8 @@ def create_admin():
     form = AdminForm()
     if form.validate_on_submit():
         staff = Staffs(email = form.email.data, name = form.name.data,password = form.password.data,is_admin = True )
-        db.session.add(staff)
-        db.session.commit()
+        staff.save_staff()
+       
         return redirect(url_for('auth.login'))
 
     return render_template('auth/admin_signup.html',form=form)
