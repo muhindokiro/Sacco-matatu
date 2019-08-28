@@ -23,28 +23,6 @@ def load_user(user_id):
 
 class Owner(UserMixin, db.Model):
 
-
-class Owners(UserMixin, db.Model):
-    __tablename__ = 'owners'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), index=True)
-    phone = db.Column(db.Integer, unique=True)
-    email = db.Column(db.String(255), unique=True, index=True)
-    date_added = db.Column(db.DateTime, default=datetime.now)
-    asset = db.relationship('Assets', backref='owners', lazy=True)
-   
-  
-    def save_user(self):
-        db.session.add(self)
-        db.session.commit()
-    def __repr__(self):
-        return f'Owners {self.name}'
-
-class Assets(db.Model):
-    __tablename__ = 'assets'
-
-class Owners(UserMixin, db.Model):
-
     __tablename__ = 'owners'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -101,13 +79,6 @@ class LoginSchema(ma.Schema):
 class Asset(db.Model):
     __tablename__ = 'assets'
 
-
-
-class Assets(db.Model):
-    __tablename__ = 'assets'
-
-
-
     id = db.Column(db.Integer, primary_key=True)
     number_plate = db.Column(db.String(10), index=True)
     route = db.relationship("Trip",backref = "asset",lazy = True)
@@ -145,11 +116,8 @@ class AssetSchema(ma.Schema):
     owner_id = fields.Integer(required=True)
   
 
-class Staff(UserMixin, db.Model):
 
 class Staffs(UserMixin, db.Model):
-
-
     """
     Create an staff table
     """
@@ -198,58 +166,6 @@ class StaffSchema(ma.Schema):
 class Trip(db.Model):
     __tablename__ = 'trips'
 
-        
-
-    @property
-    def password(self):
-        raise AttributeError('You cannot read the password attribute')
-    
-    @password.setter
-    def password(self, password):
-        self.password_hash = generate_password_hash(password)
-    
-    def verify_password(self,password):
-       
-         return check_password_hash(self.password_hash,password)
- 
-
-    def __repr__(self):
-        return 'Staffs{self.name}'
-
-
-    def __repr__(self):
-        return 'Staffs{self.name}'
-        
-
-
-class Routes(db.Model):
-    __tablename__ = 'routes'
-
-    id = db.Column(db.Integer, primary_key=True)
-    number_plate = db.Column(db.Integer, db.ForeignKey('assets.id'))
-    route = db.Column(db.String(255),index = True)
-    passengers = db.Column(db.Integer,unique = True)
-    fare = db.Column(db.String(10),unique = True)
-    station = db.Column(db.String(255),index = True)
-    time = db.Column(db.DateTime,default=datetime.now)
-
-
-class Roles(db.Model):
-    """
-    Create a Role table
-    """
-
-    __tablename__ = 'roles'
-
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(60), unique=True)
-    description = db.Column(db.String(200))
-    staff = db.relationship('Staffs', backref='roles',
-                                lazy='dynamic')
-   
-
-
-
     id = db.Column(db.Integer, primary_key=True)
     number_plate = db.Column(db.Integer, db.ForeignKey('assets.id'))
     staff_name = db.Column(db.String(255),index = True)
@@ -295,30 +211,5 @@ admin.add_view(ModelView(Trip, db.session))
 # path = op.join(op.dirname(__file__), 'static')
 # admin.add_view(FileAdmin(path, '/static/', name='Static Files'))
 
-        return 'Role{self.name}'
-class Controller(ModelView):
-    def is_accessible(self):
 
-        if  current_user.is_admin == True:
-            return current_user.is_authenticated
-        else:
-            return abort(403)
-   
-    def not_auth(self):
-        return "you are not authorised"
-
-        return current_user.is_authenticated
-    def not_auth(self):
-        return "you are not authorised"
-    
-
-
-
-admin.add_view(Controller(Owners, db.session))
-admin.add_view(Controller(Staffs, db.session))
-admin.add_view(Controller(Roles, db.session))
-admin.add_view(Controller(Assets, db.session))
-admin.add_view(Controller(Routes, db.session))
-path = op.join(op.dirname(__file__), 'static')
-admin.add_view(FileAdmin(path, '/static/', name='Static Files'))
 

@@ -2,12 +2,5 @@
 .vscode/
 virtualenv/
 *.pyc
-=======
-.vscode/
-virtualenv/
-*.pyc
-
-instance
-=======
 instance/
 

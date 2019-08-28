@@ -35,10 +35,6 @@ def create_app(config_name):
 
     CORS(app, resources={r"/api/*": {"origins": "*"}})
 
-
-   
-    app.secret_key = '!so$ku2h!w+kzgh4aq-@70=5^$h7m(4pcc$+zccs_*)0_8vyi3'
-
     # Creating the app   configurations
     app.config.from_object(config_options[config_name])
 
