@@ -1,4 +1,5 @@
-from flask import render_template,redirect,url_for,flash,request
+import os
+from flask import render_template,redirect,url_for,flash,request,abort
 from . import auth
 from ..models import Owners, Assets, Staffs, Routes
 from .forms import LoginForm,RegistrationForm,AdminForm,RequestResetForm,PasswordResetForm
@@ -6,6 +7,8 @@ from .. import db,mail
 from flask_login import login_user,logout_user,login_required,current_user
 from ..email import mail_message
 from flask_mail import Message
+import secrets
+import bcrypt
 
 @auth.route('/login',methods=['GET','POST'])
 def login():
@@ -61,10 +64,10 @@ def logout():
 def send_reset_email(staff):
     token = staff.get_reset_token()
     msg = Message('password reset request', sender = "juniormango2015@gmail.com", recipients=[staff.email])
-    msg.body =f"""visit the following link:
-{url_for('reset_token', token=token, _external=True)}
+    msg.body = f'''To reset your password, visit the following link:
+{url_for('auth.reset_token', token=token, _external=True)}
 If you did not make this request then simply ignore this email and no changes will be made.
-"""
+'''
     mail.send(msg)
     
 

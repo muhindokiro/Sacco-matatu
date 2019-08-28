@@ -19,6 +19,7 @@ bootstrap = Bootstrap()
 db = SQLAlchemy()
 photos = UploadSet('photos', IMAGES)
 mail = Mail()
+#bcrypt = Bcrypt()
 admin = Admin(name='Sacco-admin',template_mode="bootstrap3")
 
 

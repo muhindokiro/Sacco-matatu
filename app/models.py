@@ -74,12 +74,12 @@ class Staffs(UserMixin, db.Model):
     
   
     def get_reset_token(self, expires_sec=1800):
-        s = Serializer(app.config['SECRET_KEY'], expires_sec)
+        s = Serializer('SECRET_KEY', expires_sec)
         return s.dumps({'user_id': self.id}).decode('utf-8')
     
     @staticmethod
     def verify_reset_token(token):
-        s=Serializer(app.config['SECRET_KEY'])
+        s=Serializer('SECRET_KEY')
         try:
             user_id = s.loads(token)['user_id']
         except:
@@ -96,11 +96,11 @@ class Staffs(UserMixin, db.Model):
     
     def verify_password(self,password):
        
-         return check_password_hash(self.password_hash,password)
+        return check_password_hash(self.password_hash,password)
  
 
     def __repr__(self):
-        return 'Staffs{self.name}'
+        return f"User('{self.name}', '{self.email}')"
 
 
  
