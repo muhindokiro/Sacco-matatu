@@ -10,6 +10,17 @@ from flask_mail import Message
 import secrets
 import bcrypt
 
+
+
+# @auth.route('/login',methods=['GET','POST'])
+# def login():
+#     login_form = LoginForm()
+#     if login_form.validate_on_submit():
+#         user = Owner.query.filter_by(email = login_form.email.data).first()
+#         if user is not None and user.verify_password(login_form.password.data):
+#             login_user(user,login_form.remember.data)
+#             return redirect(request.args.get('next') or url_for('main.index'))
+
 @auth.route('/login',methods=['GET','POST'])
 def login():
     login_form = LoginForm()
@@ -19,10 +30,16 @@ def login():
             login_user(staff,login_form.remember.data)
             return redirect(request.args.get('next') or url_for('main.index'))
 
-        flash('Invalid Username or Password')
+
+#         flash('Invalid Username or Password')
+
+
+#     title = "login"
+#     return render_template('auth/login.html',login_form = login_form,title=title)
 
     title = "staff login"
     return render_template('auth/login.html',login_form = login_form,title=title)
+
 
 
 @auth.route('/register',methods = ["GET","POST"])
@@ -33,10 +50,10 @@ def register():
         db.session.add(staff)
         db.session.commit()
 
-        mail_message("Welcome to Sacco-matatu","email/signup",staff.email,staff=staff)
         return redirect(url_for('auth.login'))
     title = "New Account"
     return render_template('auth/register.html',registration_form = form, title=title)
+
 
 @auth.route('/create_admin',methods = ["GET","POST"])
 def create_admin():

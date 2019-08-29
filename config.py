@@ -1,8 +1,14 @@
 import os
 
 class Config:
+
+
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://blaise:tribune@localhost/prodev'
+    SECRET_KEY = 'matatu'
+
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2:'
+
     UPLOADED_PHOTOS_DEST ='app/static/photos'
     SECRET_KEY = "odongo"
 
@@ -20,10 +26,12 @@ class ProdConfig(Config):
     pass
 
 class TestConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://mango:mango@localhost/sacco_test'
+
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://blaise:tribune@localhost/prodev'
 
 class DevConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://mango:mango@localhost/sacco_test'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://blaise:tribune@localhost/prodev'
+
     DEBUG = True
 
 config_options = {
