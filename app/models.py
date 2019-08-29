@@ -1,4 +1,3 @@
-
 from flask import Flask
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
@@ -18,19 +17,18 @@ ma = Marshmallow()
 
 @login_manager.user_loader
 def load_user(user_id):
-    return Owner.query.get(int(user_id))
+    return User.query.get(int(user_id))
 
+class User(UserMixin,db.Model):
+    __tablename__ = 'users'
 
-class Owner(UserMixin, db.Model):
-
-    __tablename__ = 'owners'
-
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), index=True)
-    phone = db.Column(db.Integer, unique=True)
-    email = db.Column(db.String(255), unique=True, index=True)
-    date_added = db.Column(db.DateTime, default=datetime.now)
-    asset = db.relationship('Asset', backref='owner', lazy=True)
+    id = db.Column(db.Integer,primary_key = True)
+    username = db.Column(db.String(255),index = True)
+    email = db.Column(db.String(255),unique = True,index = True)
+    
+    # def save_comment(self):
+    #     db.session.add(self)
+    #     db.session.commit()
 
     @property
     def password(self):
@@ -44,6 +42,33 @@ class Owner(UserMixin, db.Model):
         # print(self.password_hash)
         # print(password)
         return check_password_hash(self.password_hash,password)
+
+    def __init__(self, username, email):
+        self.username = username
+        self.email = email
+
+
+class UserSchema(ma.Schema):
+    id = fields.Integer(dump_only=True)
+    username = fields.String(required=True)
+    email = fields.String(required=True, validate=validate.Length(1))
+
+class LoginSchema(ma.Schema):
+    email = fields.String(required=True, validate=validate.Length(1))
+    password_hash = fields.String(required=True, validate=validate.Length(1))
+
+
+
+class Owner(db.Model):
+
+    __tablename__ = 'owners'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), index=True)
+    phone = db.Column(db.Integer, unique=True)
+    email = db.Column(db.String(255), unique=True, index=True)
+    date_added = db.Column(db.DateTime, default=datetime.now)
+    asset = db.relationship('Asset', backref='owner', lazy=True)
 
     # def __init__(self, name, email, phone,asset, date_added):
     #     self.name = name
@@ -66,14 +91,8 @@ class OwnerSchema(ma.Schema):
     name = fields.String(required=True)
     email = fields.String(required=True, validate=validate.Length(1))
     phone = fields.Integer(required = True)
-    password_hash = fields.String(required=True, validate=validate.Length(1))
     asset = fields.String(required=True, validate=validate.Length(1))
-    date_added = fields.String(required=True)
-
-
-class LoginSchema(ma.Schema):
-    email = fields.String(required=True, validate=validate.Length(1))
-    password_hash = fields.String(required=True, validate=validate.Length(1))
+    date_added = fields.String(required=False)
 
 
 class Asset(db.Model):
@@ -117,7 +136,7 @@ class AssetSchema(ma.Schema):
   
 
 
-class Staffs(UserMixin, db.Model):
+class Staff(db.Model):
     """
     Create an staff table
     """
@@ -208,8 +227,7 @@ admin.add_view(ModelView(Owner, db.session))
 admin.add_view(ModelView(Staff, db.session))
 admin.add_view(ModelView(Asset, db.session))
 admin.add_view(ModelView(Trip, db.session))
-# path = op.join(op.dirname(__file__), 'static')
-# admin.add_view(FileAdmin(path, '/static/', name='Static Files'))
+
 
 
 

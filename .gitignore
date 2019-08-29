@@ -1,6 +1,3 @@
-
 .vscode/
-virtualenv/
+virtualname/
 *.pyc
-instance/
-
