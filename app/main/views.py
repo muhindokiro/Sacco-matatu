@@ -90,13 +90,6 @@ def philapi():
 
 
 
-# @main.route('/api/v1/resources/owners/all', methods=['GET'])
-# def api_all():
-#     conn = db
-#     conn.row_factory = dict_factory
-#     cur = conn.cursor()
-#     owners = cur.execute('SELECT * FROM Owners;').fetchall()
-#     return jsonify(owners)
 
 
 
