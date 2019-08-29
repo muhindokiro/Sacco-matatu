@@ -55,12 +55,12 @@ def create_app(config_name):
     mail.init_app(app)
 
     simple.init_app(app)
-    admin.init_app(app)
+   
 
     # Registering the blueprint
-    from .blueprints import api_bp
+    #from .blueprints import api_bp
     
-    app.register_blueprint(api_bp,url_prefix='/api')
+    #app.register_blueprint(api_bp,url_prefix='/api')
 
 
     # Registering the blueprint

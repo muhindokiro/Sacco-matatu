@@ -1,44 +1,44 @@
-from flask import Blueprint
-from flask_restful import Api
-from flask_cors import CORS
-from .main.views import (
-    OwnerCategory,OwnerById,AssetResource,UserSignIn,AssetById,
-    TripResource,TripById,StaffResource)
+# from flask import Blueprint
+# from flask_restful import Api
+# from flask_cors import CORS
+# from .main.views import (
+#     OwnerCategory,OwnerById,AssetResource,UserSignIn,AssetById,
+#     TripResource,TripById,StaffResource)
 
-api_bp = Blueprint('api', __name__)
-api = Api(api_bp)
-# CORS(api)
+# api_bp = Blueprint('api', __name__)
+# api = Api(api_bp)
+# # CORS(api)
 
-# @Api.after_request # blueprint can also be app~~
-# def after_request(response):
-#     header = response.headers
-#     header['Access-Control-Allow-Origin'] = '*'
-#     return response
+# # @Api.after_request # blueprint can also be app~~
+# # def after_request(response):
+# #     header = response.headers
+# #     header['Access-Control-Allow-Origin'] = '*'
+# #     return response
 
-# Route
+# # Route
 
-# user registration
+# # user registration
 
-# owner list
-api.add_resource(OwnerCategory, '/owner')
+# # owner list
+# api.add_resource(OwnerCategory, '/owner')
 
-# single owner
-api.add_resource(OwnerById,'/owner/<int:id>')
+# # single owner
+# api.add_resource(OwnerById,'/owner/<int:id>')
  
-# asset list
-api.add_resource(AssetResource, '/asset')
+# # asset list
+# api.add_resource(AssetResource, '/asset')
 
-# user login
-api.add_resource(UserSignIn,'/user/login')
+# # user login
+# api.add_resource(UserSignIn,'/user/login')
 
-# single asset 
-api.add_resource(AssetById,'/asset/<int:id>')
+# # single asset 
+# api.add_resource(AssetById,'/asset/<int:id>')
 
-# trip list 
-api.add_resource(TripResource,'/trip')
+# # trip list 
+# api.add_resource(TripResource,'/trip')
 
-# single trip
-api.add_resource(TripById,'/trip/<int:t_id>')
+# # single trip
+# api.add_resource(TripById,'/trip/<int:t_id>')
 
-# staff list
-api.add_resource(StaffResource,'/staff/<int:id>')
+# # staff list
+# api.add_resource(StaffResource,'/staff/<int:id>')

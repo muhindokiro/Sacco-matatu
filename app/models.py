@@ -52,7 +52,7 @@ class Assets(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     number_plate = db.Column(db.String(10), index=True)
-    route = db.relationship("Trip",backref = "asset",lazy = True)
+    route = db.relationship("Routes",backref = "asset",lazy = True)
     owner_id = db.Column(db.Integer, db.ForeignKey('owners.id'))
 
     

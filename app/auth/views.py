@@ -31,13 +31,10 @@ def login():
             return redirect(request.args.get('next') or url_for('main.index'))
 
 
-#         flash('Invalid Username or Password')
+        flash('Invalid Username or Password')
 
 
-#     title = "login"
-#     return render_template('auth/login.html',login_form = login_form,title=title)
-
-    title = "staff login"
+    title = "login"
     return render_template('auth/login.html',login_form = login_form,title=title)
 
 
