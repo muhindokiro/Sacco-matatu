@@ -147,6 +147,8 @@ class Roles(db.Model):
 
 
         return 'Role{self.name}'
+
+
 class Controller(ModelView):
     def is_accessible(self):
         if  current_user.is_admin == True:
