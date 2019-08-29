@@ -2,7 +2,7 @@ from flask import Blueprint
 from flask_restful import Api
 from flask_cors import CORS
 from .main.views import (
-    OwnerCategory,OwnerById,AssetResource,UserSignIn,AssetById,
+    UserCategory,OwnerCategory,OwnerById,AssetResource,UserSignIn,AssetById,
     TripResource,TripById,StaffResource)
 
 api_bp = Blueprint('api', __name__)
@@ -18,6 +18,7 @@ api = Api(api_bp)
 # Route
 
 # user registration
+api.add_resource(UserCategory, '/user/registration')
 
 # owner list
 api.add_resource(OwnerCategory, '/owner')
@@ -30,6 +31,9 @@ api.add_resource(AssetResource, '/asset')
 
 # user login
 api.add_resource(UserSignIn,'/user/login')
+
+# # user login
+# api.add_resource(UserSignIn,'/user/registration')
 
 # single asset 
 api.add_resource(AssetById,'/asset/<int:id>')

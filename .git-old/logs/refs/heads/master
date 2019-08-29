@@ -1,0 +1,29 @@
+0000000000000000000000000000000000000000 101da8dc46b30fce2e368aae482aa60f162b3bed muhindokiro <blaize1143@gmail.com> 1566389817 +0300	commit (initial): add Procfile
+101da8dc46b30fce2e368aae482aa60f162b3bed ad732e3df7c4d1c458df411dfc6d55f61d98a33d muhindokiro <blaize1143@gmail.com> 1566389842 +0300	commit: add config.py
+ad732e3df7c4d1c458df411dfc6d55f61d98a33d 09fb10abb40e8858fb7fcc065a24758bf6c46ede muhindokiro <blaize1143@gmail.com> 1566389865 +0300	commit: add manage.py
+09fb10abb40e8858fb7fcc065a24758bf6c46ede d7e1ac5fcd858abfc02c06b269d632018b312571 muhindokiro <blaize1143@gmail.com> 1566389894 +0300	commit: add start.sh
+d7e1ac5fcd858abfc02c06b269d632018b312571 3d42674c85dde6018b82130c88e21f28ae6403fe muhindokiro <blaize1143@gmail.com> 1566389939 +0300	commit: add specs.md
+3d42674c85dde6018b82130c88e21f28ae6403fe 6a8d34e09c6c1ed55119aa7192c6c4de4614dabf muhindokiro <blaize1143@gmail.com> 1566389968 +0300	commit: add .gitignore
+6a8d34e09c6c1ed55119aa7192c6c4de4614dabf 4cc62d65a48ffeb1df73a57143c8746f44ebde95 muhindokiro <blaize1143@gmail.com> 1566389994 +0300	commit: add requirements.txt
+4cc62d65a48ffeb1df73a57143c8746f44ebde95 c4643a8a687366df5bf25b6bbdc26736f5db8fa7 muhindokiro <blaize1143@gmail.com> 1566390032 +0300	commit: add email.py
+c4643a8a687366df5bf25b6bbdc26736f5db8fa7 a1d81086e419153e49f6a5b7c230b4eb26f617ad muhindokiro <blaize1143@gmail.com> 1566390047 +0300	commit: add models.py
+a1d81086e419153e49f6a5b7c230b4eb26f617ad edca26534ef5718b017249d167fa1f5edb87d6e9 muhindokiro <blaize1143@gmail.com> 1566390064 +0300	commit: add requests.py
+edca26534ef5718b017249d167fa1f5edb87d6e9 ca8d35b39f10ac01939a1a3d71751a65c3c7efe3 muhindokiro <blaize1143@gmail.com> 1566390087 +0300	commit: add __init__.py
+ca8d35b39f10ac01939a1a3d71751a65c3c7efe3 39e7219b37f63efae918541d4fe3e2b2ed77fafb muhindokiro <blaize1143@gmail.com> 1566390208 +0300	commit: add forms.py
+39e7219b37f63efae918541d4fe3e2b2ed77fafb 296514a849836fd1619e6ffbbeaa4c37cf82fdc7 muhindokiro <blaize1143@gmail.com> 1566390221 +0300	commit: add views.py
+296514a849836fd1619e6ffbbeaa4c37cf82fdc7 69b590f72b5053df78dd054c2c83db16894b6cc3 muhindokiro <blaize1143@gmail.com> 1566390242 +0300	commit: add errors.py
+69b590f72b5053df78dd054c2c83db16894b6cc3 73f2bca4c8257cf612dadf1296ccefb92c27c82d muhindokiro <blaize1143@gmail.com> 1566390262 +0300	commit: add __init__.py
+73f2bca4c8257cf612dadf1296ccefb92c27c82d 2b57e4187d061d9f0fedd277317a2ed6ea85b289 muhindokiro <blaize1143@gmail.com> 1566390304 +0300	commit: add views.py
+2b57e4187d061d9f0fedd277317a2ed6ea85b289 12ec3d45cd3ca77c0ce832781075a739ed86ee3a muhindokiro <blaize1143@gmail.com> 1566390325 +0300	commit: add forms.py
+12ec3d45cd3ca77c0ce832781075a739ed86ee3a 17b55de802eca18c8ee4e347996fe1be04614da6 muhindokiro <blaize1143@gmail.com> 1566390349 +0300	commit: add __init__.py
+17b55de802eca18c8ee4e347996fe1be04614da6 80ec18294f68c2e93bd2fab223055d3cb524af59 muhindokiro <blaize1143@gmail.com> 1566390440 +0300	commit: add css folder and styles.css file
+80ec18294f68c2e93bd2fab223055d3cb524af59 baf776604b709a259fae5571c52ccc8df74197bb muhindokiro <blaize1143@gmail.com> 1566390477 +0300	commit: add base.html file
+baf776604b709a259fae5571c52ccc8df74197bb b7207aae20639e86bb553044363ee3c9dc93b900 muhindokiro <blaize1143@gmail.com> 1566390493 +0300	commit: add index.html file
+b7207aae20639e86bb553044363ee3c9dc93b900 8ae77dd841ad9d0a8443ea2c7b90ae43aa055b1a muhindokiro <blaize1143@gmail.com> 1566390507 +0300	commit: add navbar.html file
+8ae77dd841ad9d0a8443ea2c7b90ae43aa055b1a 2e4ff9c35e8c4baa2fb64bff838a9f068c48f677 muhindokiro <blaize1143@gmail.com> 1566390539 +0300	commit: add fourOwfour.html file
+2e4ff9c35e8c4baa2fb64bff838a9f068c48f677 e4a41b751aab6362f83b1c0d5662abdee2ea81db muhindokiro <blaize1143@gmail.com> 1566993687 +0300	commit: add file to be ignored in .gitignore file
+e4a41b751aab6362f83b1c0d5662abdee2ea81db fa9a5970144b35b5c431c69e2df2ce328ec1cb50 muhindokiro <blaize1143@gmail.com> 1566999925 +0300	commit: updated all files
+fa9a5970144b35b5c431c69e2df2ce328ec1cb50 49a875517a66d6f09a1b024976b732f7a6faf2e4 muhindokiro <blaize1143@gmail.com> 1567000953 +0300	commit: update start.sh file
+49a875517a66d6f09a1b024976b732f7a6faf2e4 44fee9a88852d62eb85f9dc5e2d34cf2e6508d1d muhindokiro <blaize1143@gmail.com> 1567024313 +0300	commit: add final changes in models nad views.py in main folder
+44fee9a88852d62eb85f9dc5e2d34cf2e6508d1d 0916d89d945ab81b5df977f79d266f67ef641db4 muhindokiro <blaize1143@gmail.com> 1567024384 +0300	commit: add final changes in models nad views.py in main folder
+0916d89d945ab81b5df977f79d266f67ef641db4 40c91144fccd88d0aba87e167afc62cf398f6276 muhindokiro <blaize1143@gmail.com> 1567025227 +0300	commit: updated requirements.txt file

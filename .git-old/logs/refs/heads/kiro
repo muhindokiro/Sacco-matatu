@@ -1,0 +1,29 @@
+0000000000000000000000000000000000000000 2e4ff9c35e8c4baa2fb64bff838a9f068c48f677 muhindokiro <blaize1143@gmail.com> 1566390906 +0300	branch: Created from master
+2e4ff9c35e8c4baa2fb64bff838a9f068c48f677 6438e29ab3ec9f0a76bdf9837bda92c0f81ad4ee muhindokiro <blaize1143@gmail.com> 1566391582 +0300	commit: deleted username, email and password exports
+6438e29ab3ec9f0a76bdf9837bda92c0f81ad4ee 72225141eb7287a8b5424af085f5bfb2b83252d5 muhindokiro <blaize1143@gmail.com> 1566806594 +0300	commit: add vscode in file to be ignored when pushing
+72225141eb7287a8b5424af085f5bfb2b83252d5 ca601447e00c83d9719e3d08e2348bc8f542248f muhindokiro <blaize1143@gmail.com> 1566806644 +0300	commit: install new module add version to requirements.txt file
+ca601447e00c83d9719e3d08e2348bc8f542248f 1669a37606dd369d37c09eacb86c2ed3c6abf498 muhindokiro <blaize1143@gmail.com> 1566806889 +0300	commit: import flask from flask,usermixin,flasklogin,datetime,op,Admin,db,modelview
+1669a37606dd369d37c09eacb86c2ed3c6abf498 fe3b72f753dd0edc01ce18523894e5c82fb8df21 muhindokiro <blaize1143@gmail.com> 1566807023 +0300	commit: add class owners create tables name,phone,email,asset
+fe3b72f753dd0edc01ce18523894e5c82fb8df21 daafbd71c2a6eb6bdc4dd693e5b428bef8d5fc9a muhindokiro <blaize1143@gmail.com> 1566807167 +0300	commit: add class assets create table number_plate,route,owner_id
+daafbd71c2a6eb6bdc4dd693e5b428bef8d5fc9a 01bacbd34a82f0b77fd0ae604b716d6234a62d9c muhindokiro <blaize1143@gmail.com> 1566807298 +0300	commit: add class staffs create table name,phone,email,staff_no,role_id,is_admin
+01bacbd34a82f0b77fd0ae604b716d6234a62d9c bb53f734526f82f71e7f587c5845a0d350dfd1f3 muhindokiro <blaize1143@gmail.com> 1566807407 +0300	commit: add class routes add table number_plate,route,passengers,fare,station,time
+bb53f734526f82f71e7f587c5845a0d350dfd1f3 4cd90fce98d8b121d163754fa80eaa78b8389b9f muhindokiro <blaize1143@gmail.com> 1566807510 +0300	commit: add class roles create name,description,staff
+4cd90fce98d8b121d163754fa80eaa78b8389b9f ba5a0e573ab5e149c8ebd799180b3025ac68ef3c muhindokiro <blaize1143@gmail.com> 1566807647 +0300	commit: add admin view for owners, staffs, roles, assets, routes
+ba5a0e573ab5e149c8ebd799180b3025ac68ef3c ce89aec5b7a207732eb880d865a9b55d90502374 muhindokiro <blaize1143@gmail.com> 1566992041 +0300	commit: import os, create class config add secret key, add database uri in class config, prodconfig,testconfig,devconfig
+ce89aec5b7a207732eb880d865a9b55d90502374 7ec04eb80b0c43142899215ef63a72f15d9ee964 muhindokiro <blaize1143@gmail.com> 1566992085 +0300	commit: add installed flask extension
+7ec04eb80b0c43142899215ef63a72f15d9ee964 17344fee8d6f6c9121c87849312908e2399ee073 muhindokiro <blaize1143@gmail.com> 1566992178 +0300	commit: created app instances for app,manage,migrate
+17344fee8d6f6c9121c87849312908e2399ee073 7bb217a1c033958f61e554323946134fa268a238 muhindokiro <blaize1143@gmail.com> 1566992223 +0300	commit: deleted this file
+7bb217a1c033958f61e554323946134fa268a238 ca6818d75fca8c6561eb70e394a34b83a3dcb29e muhindokiro <blaize1143@gmail.com> 1566992357 +0300	commit: add email.py file
+ca6818d75fca8c6561eb70e394a34b83a3dcb29e 82f8eda02c2547b4318ef86b4dfb61e0eb9f34ae muhindokiro <blaize1143@gmail.com> 1566992416 +0300	commit: registered blueprints for the api
+82f8eda02c2547b4318ef86b4dfb61e0eb9f34ae 4eeaead30c1ee5226788ee57679c7bbf8f3bd278 muhindokiro <blaize1143@gmail.com> 1566992609 +0300	commit: add class owner and owner schema,class staff and staffschema,class trip and tripschema, class asset and assetschema and admin views in the admin page
+4eeaead30c1ee5226788ee57679c7bbf8f3bd278 1d27370501131ddf2fc8040cd87df3581c6f8a68 muhindokiro <blaize1143@gmail.com> 1566992678 +0300	commit: add forms.py file
+1d27370501131ddf2fc8040cd87df3581c6f8a68 0a43172e8d227cdbe5486481189dafef51e7053b muhindokiro <blaize1143@gmail.com> 1566992700 +0300	commit: add views.py file
+0a43172e8d227cdbe5486481189dafef51e7053b a6247b573e835a4f13211c0252ac1bb1702bc0bc muhindokiro <blaize1143@gmail.com> 1566992808 +0300	commit: add views function for owner class, asset class, trip class, staff class, and add route to get and post data
+a6247b573e835a4f13211c0252ac1bb1702bc0bc afaac234b104607023dcc95b36552d4bf57d616b muhindokiro <blaize1143@gmail.com> 1566992939 +0300	commit: add __init__.py file
+afaac234b104607023dcc95b36552d4bf57d616b 2dc757468bc454412f0bce0aca7ac13da5bd3fdc muhindokiro <blaize1143@gmail.com> 1566993038 +0300	commit: add blueprints.py file for the api route to different surces to fetch data
+2dc757468bc454412f0bce0aca7ac13da5bd3fdc c8185e821f4111ed7071009b8438abda619ae596 muhindokiro <blaize1143@gmail.com> 1566993109 +0300	commit: add tokens.py file
+c8185e821f4111ed7071009b8438abda619ae596 28aca7b25d6717f401b9918c44dd6a905fd45a86 muhindokiro <blaize1143@gmail.com> 1566993184 +0300	commit: add validators.py file
+28aca7b25d6717f401b9918c44dd6a905fd45a86 9d0cac7b321889a4ca952ec31a27fd6551529e9f muhindokiro <blaize1143@gmail.com> 1566993274 +0300	commit: migration folder formed ofter making migrations
+9d0cac7b321889a4ca952ec31a27fd6551529e9f 7da6566ed682ee9b66d4e0dc68e5c8fb1e611356 muhindokiro <blaize1143@gmail.com> 1566995000 +0300	commit (merge): resolved conflicts
+7da6566ed682ee9b66d4e0dc68e5c8fb1e611356 fcc7e9062acc5b25fe605b96d58a00f37ac32504 muhindokiro <blaize1143@gmail.com> 1566995345 +0300	commit: update shell context
+fcc7e9062acc5b25fe605b96d58a00f37ac32504 dc318a1a765e1ed8b5a862e0e8c01e4ea0f5b8aa muhindokiro <blaize1143@gmail.com> 1566996463 +0300	commit: made changes in respective file

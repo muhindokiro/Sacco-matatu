@@ -1,4 +1,3 @@
 {
-    "python.pythonPath": "/home/mango/Documents/News/virtual/bin/python",
-    "python.formatting.provider": "black"
+    "python.pythonPath": "virtualenv/bin/python3.6"
 }

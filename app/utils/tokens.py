@@ -70,7 +70,7 @@ def login_required(f):
         # print(response)
         if isinstance(response,str):
             raise Unauthorized('Invalid Token.Please Login(response)') 
-        check_id = Owner.query.filter_by(id=response).first()
+        check_id = User.query.filter_by(id=response).first()
         if not check_id:
             raise Unauthorized('Invalid Token(id).Please Login') 
         return f(*args, **kwargs)

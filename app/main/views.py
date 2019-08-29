@@ -1,21 +1,23 @@
-from flask import render_template,request,redirect,url_for,abort
-from . import main
-
-from flask_restful import Resource
-from werkzeug.security import generate_password_hash,check_password_hash
-from ..models import(
-    Owner, OwnerSchema, Asset, AssetSchema, LoginSchema,
-    Trip,TripSchema,Staff,StaffSchema)
-from .. import db,photos
-import markdown2 
 from datetime import datetime
-from ..utils.tokens import Tokens,login_required, GetUserId
+from flask import abort, redirect, render_template, request, url_for
+from flask_restful import Resource
+from marshmallow import ValidationError
+from werkzeug.security import check_password_hash, generate_password_hash
+# from .. import db,photos
+import markdown2
+from app import admin, db, login_manager
 from flask_cors import cross_origin
+from ..models import (User, UserSchema,Asset, AssetSchema, LoginSchema, Owner, OwnerSchema,
+                      Staff, StaffSchema, Trip, TripSchema)
+from ..utils.tokens import GetUserId, Tokens, login_required
+from . import main
 
 tk = Tokens()
 
 owners_schema = OwnerSchema(many=True)
 owner_schema = OwnerSchema()
+users_schema = UserSchema(many=True)
+user_schema = UserSchema()
 login_schema = LoginSchema()     
 assets_schema = AssetSchema(many=True)
 asset_schema = AssetSchema()
@@ -23,13 +25,6 @@ trips_schema = TripSchema(many=True)
 trip_schema = TripSchema()
 staffs_schema = StaffSchema(many=True)
 staff_schema = StaffSchema()
-
-from ..models import Owners, Assets, Staffs, Routes,Roles
-from .forms import OwnerForm,UpdateProfile
-from flask_login import login_required,current_user
-from .. import db,photos
-from flask_admin.contrib.sqla import ModelView
-
 
 
 
@@ -42,6 +37,37 @@ def index():
     '''
     title = 'Sacco_Matatu_project'
     return render_template('index.html',title = title)
+
+@main.route('/user', methods=['POST'])
+class UserCategory(Resource):
+    '''
+    View root page function that returns the index page and its data
+    '''
+    # @cross_origin()
+    def post(self):
+        json_data = request.get_json(force=True)
+        if not json_data:
+            return {'message': 'No input data provided'}, 400
+        # Validate and deserialize input
+         # Validate and deserialize input
+        try:
+            data = user_schema.load(json_data)
+        except ValidationError as e:
+            return {'message': e.messages}, 400
+        # data  = user_schema.load(json_data)
+        # if errors:
+        #     return errors, 422
+        user = User.query.filter_by(email=data['email']).first()
+        if user:
+            return {'message': 'User with email provided already exists'}, 400
+        user = User(
+            username=json_data['username'],
+            email=json_data['email'],
+            )
+        db.session.add(user)
+        db.session.commit()
+        result = user_schema.dump(user)
+        return { "status": 'success', 'data': result }, 201
 
 
 # @login_required
@@ -64,9 +90,11 @@ class OwnerCategory(Resource):
         if not json_data:
             return {'message': 'No input data provided'}, 400
         # Validate and deserialize input
-        data, errors = owner_schema.load(json_data)
-        if errors:
-            return errors, 422
+        try:
+            data = owner_schema.load(json_data)
+        except ValidationError as e:
+            return {'message': e.messages}, 400
+        
         owner = Owner.query.filter_by(email=data['email']).first()
         if owner:
             return {'message': 'User with email provided already exists'}, 400
@@ -75,13 +103,12 @@ class OwnerCategory(Resource):
             asset=json_data['asset'],
             email=json_data['email'],
             phone=json_data['phone'],
-            password_hash=generate_password_hash(json_data['password_hash']),
-            date_added=json_data['date_added'],
-            
-            )
+            # password_hash=generate_password_hash(json_data['password_hash']),
+            # date_added=json_data['date_added'],
+        )
         db.session.add(owner)
         db.session.commit()
-        result = owner_schema.dump(owner).data
+        result = owner_schema.dump(owner)
         return { "status": 'success', 'data': result }, 201
 
 @main.route('/owner/<int:id>', methods=['GET','POST'])
@@ -112,7 +139,7 @@ class OwnerById(Resource):
         if not json_data:
             return {'message': 'No input data provided'}, 400
         # Validate and deserialize input
-        data, errors = owner_schema.load(json_data)
+        data = owner_schema.load(json_data)
         if errors:
             return errors, 422
         owner = Owner.query.filter_by(id=id).first()
@@ -147,7 +174,7 @@ class OwnerById(Resource):
         if not json_data:
             return {'message': 'No input data provided'}, 400
         # Validate and deserialize input
-        data, errors = owner_schema.load(json_data)
+        data = owner_schema.load(json_data)
         if errors:
             return errors, 422
         owners = Owner.query.filter_by(id=id).first()
@@ -161,7 +188,7 @@ class OwnerById(Resource):
 
         return { "status": 'success', 'data': result}, 204
  
-@main.route('/register', methods=['GET','POST'])
+@main.route('/register', methods=['POST'])
 class  UserSignIn(Resource):
     def post(self):
         """Method to allow owner to login"""
@@ -207,7 +234,7 @@ class AssetResource(Resource):
             'status': 'No assets found',
         }, 400
     
-    @login_required
+    # @login_required
     def post(self):
         userId = GetUserId.user_creds(self)
         owner = Owner.query.filter_by(id=userId).first()
@@ -219,7 +246,7 @@ class AssetResource(Resource):
         if not json_data:
             return {'message': 'No input data provided'}, 400
         # Validate and deserialize input
-        data, errors = asset_schema.load(json_data)
+        data = asset_schema.load(json_data)
         if errors:
             return errors, 422
         asset = Asset.query.filter_by(number_plate=data['number_plate']).first()
@@ -265,7 +292,7 @@ class AssetById(Resource):
         if not json_data:
             return {'message': 'No input data provided'}, 400
         # Validate and deserialize input
-        data, errors = asset_schema.load(json_data)
+        data = asset_schema.load(json_data)
         if errors:
             return errors, 422
         asset = Asset.query.filter_by(id=id).first()
@@ -297,7 +324,7 @@ class AssetById(Resource):
         if not json_data:
             return {'message': 'No input data provided'}, 400
         # Validate and deserialize input
-        data, errors = asset_schema.load(json_data)
+        data = asset_schema.load(json_data)
         if errors:
             return errors, 422
         assets = Asset.query.filter_by(id=id).first()
@@ -338,7 +365,7 @@ class TripResource(Resource):
         if not json_data:
             return {'message': 'No input data provided'}, 400
         # Validate and deserialize input
-        data, errors = trip_schema.load(json_data)
+        data = trip_schema.load(json_data)
         if errors:
             return errors, 422
         trip = Trip.query.filter_by(number_plate=data['number_plate'],id=id).first()
@@ -667,27 +694,26 @@ class StaffResource(Resource):
     
 
 
-@main.route('/dashboard')
-@login_required
-def dashboard():
-    """
-    Render the dashboard template on the /dashboard route
-    """
-    return render_template('dashboard.html', title="Dashboard")
+# @main.route('/dashboard')
+# @login_required
+# def dashboard():
+#     """
+#     Render the dashboard template on the /dashboard route
+#     """
+#     return render_template('dashboard.html', title="Dashboard")
 
 
-@main.route('/admin/dashboard')
-@login_required
-def admin_dashboard():
-    # prevent non-admins from accessing the page
-    if not current_user.is_admin:
-        abort(403)
+# @main.route('/admin/dashboard')
+# @login_required
+# def admin_dashboard():
+#     # prevent non-admins from accessing the page
+#     if not current_user.is_admin:
+#         abort(403)
 
-    return render_template('admin_dashboard.html', title="Dashboard")
+#     return render_template('admin_dashboard.html', title="Dashboard")
 
-class Controller(ModelView):
-    def is_accessible(self):
-        return current_user.is_authenticated
-    def not_auth(self):
-        return "you are not authorised"
-
+# class Controller(ModelView):
+#     def is_accessible(self):
+#         return current_user.is_authenticated
+#     def not_auth(self):
+#         return "you are not authorised"
