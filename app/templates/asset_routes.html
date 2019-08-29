@@ -1,0 +1,23 @@
+{% extends 'base.html'%}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block content %}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+	<h1>Email : {{ aroutez.number_plate }}</h1>
+    <h1>Email : {{ aroutez.route }}</h1>
+    <h2>First name : {{ aroutez.passengers }}</h2>
+    <h2>Last name : {{ aroutez.station }}</h2>
+</body>
+</html>
+
+
+{% endblock%}

@@ -30,13 +30,13 @@ class Owners(UserMixin, db.Model):
     asset = db.relationship('Assets', backref='owners', lazy=True)
    
   
-    def save_user(self):
+    def save_owner(self):
         db.session.add(self)
         db.session.commit()
+    
+
     def __repr__(self):
-
-
-        return f'Owners {self.name}'
+        return f' {self.name}'
 
 
 class Assets(db.Model):
@@ -45,13 +45,13 @@ class Assets(db.Model):
     number_plate = db.Column(db.String(10), index=True)
     route = db.relationship("Trips",backref = "assets",lazy = True)
     owner_id = db.Column(db.Integer, db.ForeignKey('owners.id'))
+
+    def __repr__(self):
+        return f' {self.number_plate}'
     
     
     def save_asset(self):
         db.session.add(self)
-
-
-
         db.session.commit()
 
 
@@ -70,6 +70,10 @@ class Staffs(UserMixin, db.Model):
     staff_no = db.Column(db.Integer,unique = True)
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     is_admin =db.Column(db.Boolean, default=False)
+
+
+    def __repr__(self):
+        return f' {self.name}'
     
     def save_staff(self):
         db.session.add(self)
@@ -97,21 +101,32 @@ class Trips(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     number_plate = db.Column(db.Integer, db.ForeignKey('assets.id'))
     route = db.Column(db.String(255),index = True)
-    passengers = db.Column(db.Integer,unique = True)
-    fare = db.Column(db.String(10),unique = True)
+    passengers = db.Column(db.Integer,index = True)
+    fare = db.Column(db.String(10),index = True)
     station = db.Column(db.String(255),index = True)
     time = db.Column(db.DateTime,default=datetime.now)
     driver = db.Column(db.String(70),index = True)
     conductor = db.Column(db.String(70),index = True)
+    trip_total_fare = db.Column(db.String(70),index = True)
 
-    def __init__(self,route,passengers, fare, station, driver, conductor):
+    
+
+    # def __init__(self,route,passengers, fare, station, driver, conductor):
         
-        self.route = route
-        self.passengers = passengers
-        self.fare = fare
-        self.station = station
-        self.driver = driver
-        self.conductor = conductor
+    #     self.route = route
+    #     self.passengers = passengers
+    #     self.fare = fare
+    #     self.station = station
+    #     self.driver = driver
+    #     self.conductor = conductor
+
+
+    def __repr__(self):
+        return f' {self.number_plate}'
+
+    def save_trip(self):
+        db.session.add(self)
+        db.session.commit()
 
 
 
@@ -142,10 +157,16 @@ class Controller(ModelView):
     def not_auth(self):
         return "you are not authorised"
 
+class Mytools(ModelView):
+    can_delete = True
+    page_size = 50
+    column_searchable_list = ['phone']
 
+
+admin.add_view(Mytools(Staffs, db.session))
     
 admin.add_view(ModelView(Owners, db.session))
-admin.add_view(ModelView(Staffs, db.session))
+# admin.add_view(ModelView(Staffs, db.session))
 admin.add_view(ModelView(Roles, db.session))
 admin.add_view(ModelView(Assets, db.session))
 admin.add_view(ModelView(Trips, db.session))

@@ -14,12 +14,6 @@ from .. import db
 from wtforms.fields import FormField
 
 
-class OwnersForm(FlaskForm):
-
-    name = StringField('Full Name',validators=[Required()])
-    email = StringField('Email',validators=[Required()])
-    phone = StringField('Phone', validators=[Required()])
-    submit = SubmitField('Submit')
 
 
 # class AssetsForm(FlaskForm):
@@ -78,13 +72,15 @@ RoutesForm.submit = SubmitField('Create')
 
 
 
+# from wtforms.ext.sqlalchemy import QuerySelectField
 
-# class Trips(db.Model):
-#     __tablename__ = 'routes'
-#     id = db.Column(db.Integer, primary_key=True)
-#     number_plate = db.Column(db.Integer, db.ForeignKey('assets.id'))
-#     route = db.Column(db.String(255),index = True)
-#     passengers = db.Column(db.Integer,unique = True)
-#     fare = db.Column(db.String(10),unique = True)
-#     station = db.Column(db.String(255),index = True)
-#     time = db.Column(db.DateTime,default=datetime.now)
+# class RoutesForm(form.Form):
+#     fare = fields.TextField('Fare')    
+#     number_plate = QuerySelectField('Assets')
+
+# class RoutesView(ModelView):
+
+#     def create_form(self):
+#         form = RoutesForm()
+#         form.assets.query = Assets.query.all()
+#         return form
