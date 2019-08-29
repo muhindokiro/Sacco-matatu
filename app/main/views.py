@@ -1,7 +1,7 @@
 from flask import render_template,request,redirect,url_for,abort, jsonify
 from . import main
 from ..models import Owners, Assets, Staffs, Trips
-from .forms import OwnersForm, AssetsForm, RoutesForm
+from .forms import AssetsForm, RoutesForm
 from flask_login import login_required
 from .. import db,photos
 
