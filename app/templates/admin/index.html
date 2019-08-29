@@ -11,6 +11,9 @@
 
     <h2> you are logged in as {{current_user.name}}</h2>
     <br>
+    {%for routes in routes%}
+    {{routes.name}}
+    {%endfor%}
     <a href="/"">Front-end</a>
     
     

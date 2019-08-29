@@ -3,7 +3,7 @@ import os
 class Config:
 
 
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://mango:mango@localhost/sacco_test '
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://mango:mango@localhost/sacco_test'
     SECRET_KEY = 'matatu'
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
@@ -27,10 +27,10 @@ class ProdConfig(Config):
 
 class TestConfig(Config):
 
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://mango:mango@localhost/sacco_test '
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://mango:mango@localhost/sacco_test'
 
 class DevConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://mango:mango@localhost/sacco_test '
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://mango:mango@localhost/sacco_test'
 
     DEBUG = True
 

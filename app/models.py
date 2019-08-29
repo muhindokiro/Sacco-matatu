@@ -93,7 +93,7 @@ class Staffs(UserMixin, db.Model):
     name = db.Column(db.String(255),index = True)
     phone = db.Column(db.Integer,unique = True)
     email = db.Column(db.String(255),unique = True,index = True)
-    password_hash = db.Column(db.String(75), nullable=False)
+    password_hash = db.Column(db.String(255), nullable=False)
     date_added = db.Column(db.DateTime,default=datetime.now)
     staff_no = db.Column(db.Integer,unique = True)
     is_admin =db.Column(db.Boolean, default=False)
@@ -101,7 +101,7 @@ class Staffs(UserMixin, db.Model):
     def save_staff(self):
         db.session.add(self)
         db.session.commit()
-  
+    
     def get_reset_token(self, expires_sec=1800):
         s = Serializer('SECRET_KEY', expires_sec)
         return s.dumps({'user_id': self.id}).decode('utf-8')
@@ -173,7 +173,10 @@ class Routes(db.Model):
     #     self.fare = fare
     #     self.station = station
     #     self.time = time
-
+    @classmethod
+    def get_routes(cls, id):
+        routes = Routes.query.order_by(number_plate=id).desc().all()
+        return routes
     def __repr__(self):
 
         return f' {self.route}'

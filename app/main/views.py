@@ -4,8 +4,11 @@ from ..models import Owners, Assets, Staffs, Routes
 from flask_restful import Resource
 from werkzeug.security import generate_password_hash,check_password_hash
 from .. import db,photos
+from flask_login import login_user,logout_user,login_required,current_user
 import markdown2 
 from datetime import datetime
+from flask_admin import BaseView
+from flask_admin import Admin
 # from ..utils.tokens import Tokens,login_required, GetUserId
 # from flask_cors import cross_origin
 
@@ -32,15 +35,26 @@ from datetime import datetime
 
 # #comment
 
+# @main.route('/')
+# def index():
+#     '''
+#     View root page function that returns the index page and its data
+#     '''
+#     title = 'Sacco_Matatu_project'
+#     routes = Routes.query.all()
+#     return render_template('index.html',title = title,routes=routes)
+
+class MyView(BaseView):
+    def __init__(self, *args, **kwargs):
+        self._default_view = True
+        super(MyView, self).__init__(*args, **kwargs)
+        self.admin = Admin()
+
 @main.route('/')
+@login_required
 def index():
-    '''
-    View root page function that returns the index page and its data
-    '''
-    title = 'Sacco_Matatu_project'
-    return render_template('index.html',title = title)
-
-
+    routes = Routes.query.all()
+    return MyView().render('admin/index.html',routes=routes)
 
 # # @login_required
 # @main.route('/owner', methods=['GET','POST'])
