@@ -35,16 +35,7 @@ AssetsForm.submit = SubmitField('Create')
 
 
 
-# class OwnersForm(ModelForm, FlaskForm):
-#     class Meta:
-#         model = Owners
 
-
-
-# class AssetsForm(ModelForm, FlaskForm):
-#     class Meta:
-#         model = Assets
-#     owner = ModelFieldList(FormField(OwnersForm))
 
 
 
