@@ -169,7 +169,7 @@ admin.add_view(Mytools(Staffs, db.session))
     
 admin.add_view(Controller(Owners, db.session))
 # admin.add_view(ModelView(Staffs, db.session))
-admin.add_view(ModelView(Roles, db.session))
+# admin.add_view(ModelView(Roles, db.session))
 admin.add_view(ModelView(Assets, db.session))
 admin.add_view(ModelView(Trips, db.session))
 path = op.join(op.dirname(__file__), 'static')
