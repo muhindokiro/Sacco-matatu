@@ -1,6 +1,6 @@
 from flask import render_template,redirect,url_for,flash,request
 from . import auth
-from ..models import Owners, Assets, Staffs, Trips,Roles
+from ..models import Owners, Assets, Staffs, Trips
 from .forms import LoginForm,RegistrationForm
 from .. import db
 from flask_login import login_user,logout_user,login_required

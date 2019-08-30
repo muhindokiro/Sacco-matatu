@@ -68,7 +68,6 @@ class Staffs(UserMixin, db.Model):
     password_hash = db.Column(db.String(255), nullable=False)
     date_added = db.Column(db.DateTime,default=datetime.now)
     staff_no = db.Column(db.Integer,unique = True)
-    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     is_admin =db.Column(db.Boolean, default=False)
 
 
