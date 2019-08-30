@@ -68,6 +68,7 @@ class Staffs(UserMixin, db.Model):
     password_hash = db.Column(db.String(255), nullable=False)
     date_added = db.Column(db.DateTime,default=datetime.now)
     staff_no = db.Column(db.Integer,unique = True)
+    role_id = db.Column(db.Integer, db.ForeignKey('roles.id',ondelete='CASCADE'))
     is_admin =db.Column(db.Boolean, default=False)
 
 
@@ -130,22 +131,17 @@ class Trips(db.Model):
 
 
 
-# class Roles(db.Model):
-#     """
-#     Create a Role table
-#     """
-#     __tablename__ = 'roles'
-#     id = db.Column(db.Integer, primary_key=True)
-#     name = db.Column(db.String(60), unique=True)
-#     description = db.Column(db.String(200))
-#     staff = db.relationship('Staffs', backref='roles',
-#                                 lazy='dynamic')
-   
-#     def __repr__(self):
- 
+class Roles(db.Model):
+    """
+    Create a Role table
+    """
+    __tablename__ = 'roles'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(60), unique=True)
+    description = db.Column(db.String(200))
+    staff = db.relationship('Staffs', backref='roles',
+                                lazy='dynamic')
 
-
-#         return 'Role{self.name}'
 
 
 class Controller(ModelView):
