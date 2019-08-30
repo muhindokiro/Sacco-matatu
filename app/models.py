@@ -131,22 +131,22 @@ class Trips(db.Model):
 
 
 
-class Roles(db.Model):
-    """
-    Create a Role table
-    """
-    __tablename__ = 'roles'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(60), unique=True)
-    description = db.Column(db.String(200))
-    staff = db.relationship('Staffs', backref='roles',
-                                lazy='dynamic')
+# class Roles(db.Model):
+#     """
+#     Create a Role table
+#     """
+#     __tablename__ = 'roles'
+#     id = db.Column(db.Integer, primary_key=True)
+#     name = db.Column(db.String(60), unique=True)
+#     description = db.Column(db.String(200))
+#     staff = db.relationship('Staffs', backref='roles',
+#                                 lazy='dynamic')
    
-    def __repr__(self):
+#     def __repr__(self):
  
 
 
-        return 'Role{self.name}'
+#         return 'Role{self.name}'
 
 
 class Controller(ModelView):
@@ -167,7 +167,7 @@ class Mytools(ModelView):
 
 admin.add_view(Mytools(Staffs, db.session))
     
-admin.add_view(ModelView(Owners, db.session))
+admin.add_view(Controller(Owners, db.session))
 # admin.add_view(ModelView(Staffs, db.session))
 admin.add_view(ModelView(Roles, db.session))
 admin.add_view(ModelView(Assets, db.session))
