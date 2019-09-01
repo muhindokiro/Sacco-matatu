@@ -11,6 +11,7 @@ from flask_admin.contrib.fileadmin import FileAdmin
 import os.path as op
 
 
+
 @login_manager.user_loader
 def load_user(user_id):
 
@@ -100,6 +101,7 @@ class Trips(db.Model):
     __tablename__ = 'routes'
     id = db.Column(db.Integer, primary_key=True)
     number_plate = db.Column(db.Integer, db.ForeignKey('assets.id'))
+    staff_name = db.Column(db.String(70),index = True)
     route = db.Column(db.String(255),index = True)
     passengers = db.Column(db.Integer,index = True)
     fare = db.Column(db.String(10),index = True)
@@ -160,12 +162,43 @@ class Mytools(ModelView):
     column_searchable_list = ['phone']
 
 
+def action(name, text, confirmation=None):
+    """
+        Use this decorator to expose actions that span more than one
+        entity (model, file, etc)
+
+        :param name:
+            Action name
+        :param text:
+            Action text.
+        :param confirmation:
+            Confirmation text. If not provided, action will be executed
+            unconditionally.
+    """
+    def wrap(f):
+        f._action = (name, text, confirmation)
+        return f
+
+    return wrap
+
+
+class TheView(ModelView):
+
+    @action('print summary', 'Print Summary', 'Are you sure you want to print summary?')
+    def action_recalculate(self, ids):
+        count = 0
+        for _id in ids:
+            transaction_service.recalculate_transaction(_id)
+            count += 1
+        flash("{0} transaction (s) charges recalculated".format(count))
+
+
 admin.add_view(Mytools(Staffs, db.session))
     
-admin.add_view(Controller(Owners, db.session))
+admin.add_view(ModelView(Owners, db.session))
 # admin.add_view(ModelView(Staffs, db.session))
 # admin.add_view(ModelView(Roles, db.session))
 admin.add_view(ModelView(Assets, db.session))
-admin.add_view(ModelView(Trips, db.session))
+admin.add_view(TheView(Trips, db.session))
 path = op.join(op.dirname(__file__), 'static')
 admin.add_view(FileAdmin(path, '/static/', name='Static Files'))
