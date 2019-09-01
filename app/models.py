@@ -10,6 +10,8 @@ from flask_admin.contrib.sqla import ModelView
 from flask_admin.contrib.fileadmin import FileAdmin
 import os.path as op
 
+from flask_weasyprint import HTML, render_pdf
+
 
 
 @login_manager.user_loader
@@ -186,11 +188,20 @@ class TheView(ModelView):
 
     @action('print summary', 'Print Summary', 'Are you sure you want to print summary?')
     def action_recalculate(self, ids):
-        count = 0
-        for _id in ids:
-            transaction_service.recalculate_transaction(_id)
-            count += 1
-        flash("{0} transaction (s) charges recalculated".format(count))
+
+        #trips = Trips.query.get(ids)
+        #trips = Trips.query.all()
+        trips = Trips.query.filter(Trips.id.in_(ids)).all()
+        name = 'trips'
+        ids = ids
+
+        html = render_template('tripsreport.html', ids=ids, name=name, trips=trips)
+        return render_pdf(HTML(string=html))    
+        # count = 0
+        # for _id in ids:
+        #     transaction_service.recalculate_transaction(_id)
+        #     count += 1
+        # flash("{0} transaction (s) charges recalculated".format(count))
 
 
 admin.add_view(Mytools(Staffs, db.session))

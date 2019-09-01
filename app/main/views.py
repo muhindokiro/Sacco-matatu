@@ -10,12 +10,32 @@ from .. import db,photos
 
 # from wtforms.ext.sqlalchemy import QuerySelectField
 
+from flask_weasyprint import HTML, render_pdf
+
+
+# @main.route('/hello/', defaults={'name': 'World'})
+# @main.route('/hello/<name>/')
+# def hello_html(name):
+#     return render_template('hello.html', name=name)
+
+
+@main.route('/hello_<name>.pdf')
+def hello_pdf(name):
+    # Make a PDF straight from HTML in a string.
+    html = render_template('hello.html', name=name)
+    return render_pdf(HTML(string=html))
+    #return render_pdf(url_for('main.hello_html', name=name))
+
+
+
+
 @main.route('/', methods = ['GET','POST'])
 def index():
 
     
     title = 'Home'
-    return render_template('index.html',title = title)
+    name = 'ken';
+    return render_template('index.html',title = title, name = name)
 
 
 

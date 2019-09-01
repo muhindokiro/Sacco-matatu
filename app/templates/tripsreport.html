@@ -1,0 +1,24 @@
+<!doctype html>
+<title>Hello</title>
+<link rel=stylesheet href="{{ url_for('static', filename='style.css') }}" />
+
+<p>Report for  {{ name }}!</p>
+
+<table class="table table-striped table-bordered table-hover model-list">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>Staff Name</th>
+			<th>Route</th>
+			<th>Passengers</th>
+		</tr>
+	</thead>
+{% for trip in trips %}
+	<tr>
+		<td>{{trip.id}}</td>
+		<td>{{trip.staff_name}}</td>
+		<td>{{trip.route}}</td>
+		<td>{{trip.passengers}}</td>
+	</tr>
+{% endfor %}
+</table>
