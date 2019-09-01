@@ -227,6 +227,7 @@ class TheView(ModelView):
 
 
 
+
 admin.add_view(Mytools(Staffs, db.session))
     
 admin.add_view(ModelView(Owners, db.session))
