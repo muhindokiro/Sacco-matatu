@@ -12,6 +12,9 @@ import os.path as op
 
 from flask_weasyprint import HTML, render_pdf
 
+from flask_mail import Message
+from . import mail
+from .email import mail_message
 
 
 @login_manager.user_loader
@@ -31,6 +34,7 @@ class Owners(UserMixin, db.Model):
     email = db.Column(db.String(255), unique=True, index=True)
     date_added = db.Column(db.DateTime, default=datetime.now)
     asset = db.relationship('Assets', backref='owners', lazy=True)
+    trip = db.relationship('Trips', backref='owners', lazy=True)
    
   
     def save_owner(self):
@@ -112,6 +116,7 @@ class Trips(db.Model):
     driver = db.Column(db.String(70),index = True)
     conductor = db.Column(db.String(70),index = True)
     trip_total_fare = db.Column(db.String(70),index = True)
+    owner = db.Column(db.Integer, db.ForeignKey('owners.id'))
 
     
 
@@ -196,12 +201,30 @@ class TheView(ModelView):
         ids = ids
 
         html = render_template('tripsreport.html', ids=ids, name=name, trips=trips)
+
+        owneremail='';
+        for singletrip in trips:
+            owneremail = singletrip.owners.email;
+            if owneremail != '':
+                break
+
+
+        mail_message("Trip report","email/trip_report",owneremail,ids=ids, name=name, trips=trips)
+
+
         return render_pdf(HTML(string=html))    
         # count = 0
         # for _id in ids:
         #     transaction_service.recalculate_transaction(_id)
         #     count += 1
         # flash("{0} transaction (s) charges recalculated".format(count))
+
+
+
+    
+
+
+
 
 
 admin.add_view(Mytools(Staffs, db.session))

@@ -21,6 +21,22 @@ def login():
     return render_template('auth/login.html',login_form = login_form,title=title)
 
 
+# @auth.route('/register',methods = ["GET","POST"])
+# def register():
+#     form = RegistrationForm()
+#     if form.validate_on_submit():
+#         staff = Staffs(email = form.email.data, name = form.name.data,password = form.password.data)
+#         db.session.add(staff)
+#         db.session.commit()
+
+#         return redirect(url_for('auth.login'))
+#     title = "New Account"
+#     return render_template('auth/register.html',registration_form = form, title=title)
+
+
+
+
+
 @auth.route('/register',methods = ["GET","POST"])
 def register():
     form = RegistrationForm()
@@ -29,9 +45,17 @@ def register():
         db.session.add(staff)
         db.session.commit()
 
+        mail_message("Welcome to Matatu Sacco","email/welcome_staff",staff.email,staff=staff)
+        
         return redirect(url_for('auth.login'))
-    title = "New Account"
-    return render_template('auth/register.html',registration_form = form, title=title)
+        title = "New Account"
+    return render_template('auth/register.html',registration_form = form)
+
+
+
+
+
+
 @auth.route('/create_admin',methods = ["GET","POST"])
 def create_admin():
     # prevent non-admins from accessing the page
