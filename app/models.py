@@ -169,6 +169,9 @@ class Mytools(ModelView):
     column_searchable_list = ['phone']
 
 
+
+
+
 def action(name, text, confirmation=None):
     """
         Use this decorator to expose actions that span more than one
@@ -208,8 +211,8 @@ class TheView(ModelView):
             if owneremail != '':
                 break
 
-
-        mail_message("Trip report","email/trip_report",owneremail,ids=ids, name=name, trips=trips)
+        # mail_message("Trip report","email/trip_report",owneremail,ids=ids, name=name, trips=trips)
+        
 
 
         return render_pdf(HTML(string=html))    
@@ -225,7 +228,16 @@ class TheView(ModelView):
 
 
 
+class Mtools(ModelView):
+    can_delete = True
+    page_size = 50
+    column_searchable_list = ['number_plate']
+    # can_export = True
 
+class Triptools(TheView):
+    can_delete = False
+    page_size = 100
+    column_searchable_list = ['owners.name']
 
 
 admin.add_view(Mytools(Staffs, db.session))
@@ -233,7 +245,7 @@ admin.add_view(Mytools(Staffs, db.session))
 admin.add_view(ModelView(Owners, db.session))
 # admin.add_view(ModelView(Staffs, db.session))
 # admin.add_view(ModelView(Roles, db.session))
-admin.add_view(ModelView(Assets, db.session))
-admin.add_view(TheView(Trips, db.session))
+admin.add_view(Mtools(Assets, db.session))
+admin.add_view(Triptools(Trips, db.session))
 path = op.join(op.dirname(__file__), 'static')
 admin.add_view(FileAdmin(path, '/static/', name='Static Files'))

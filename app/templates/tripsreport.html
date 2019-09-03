@@ -1,24 +1,68 @@
+<html>
 <!doctype html>
-<title>Hello</title>
+<title>Trip Report</title>
 <link rel=stylesheet href="{{ url_for('static', filename='style.css') }}" />
 
+<body>
+<div class="container">
 <p>Report for  {{ name }}!</p>
 
-<table class="table table-striped table-bordered table-hover model-list">
+<!-- CSS Code: Place this code in the document's head (between the <head> -- </head> tags) -->
+<style>
+table.customTable {
+  width: 100%;
+  background-color: #FFFFFF;
+  border-collapse: collapse;
+  border-width: 2px;
+  border-color: #7ea8f8;
+  border-style: solid;
+  color: #000000;
+}
+
+table.customTable td, table.customTable th {
+  border-width: 2px;
+  border-color: #7ea8f8;
+  border-style: solid;
+  padding: 5px;
+}
+
+table.customTable thead {
+  background-color: #7ea8f8;
+}
+</style>
+
+<table class="customTable">
 	<thead>
 		<tr>
 			<th>#</th>
 			<th>Staff Name</th>
+			<th>Driver</th>
+			<th>Conductor</th>
 			<th>Route</th>
 			<th>Passengers</th>
+			<th>Fare</th>
+			<th>Station</th>
+			<th>Time</th>
+			<th>Trip Total Fare</th>
 		</tr>
 	</thead>
 {% for trip in trips %}
 	<tr>
 		<td>{{trip.id}}</td>
 		<td>{{trip.staff_name}}</td>
+		<td>{{trip.driver}}</td>
+		<td>{{trip.conductor}}</td>
 		<td>{{trip.route}}</td>
 		<td>{{trip.passengers}}</td>
+		<td>{{trip.fare}}</td>
+		<td>{{trip.station}}</td>
+		<td>{{trip.time}}</td>
+		<td>{{trip.trip_total_fare}}</td>
 	</tr>
 {% endfor %}
 </table>
+
+
+</div>
+</body>
+</html>
