@@ -4,8 +4,7 @@
 <link rel=stylesheet href="{{ url_for('static', filename='style.css') }}" />
 
 <body>
-<div class="container">
-<p>Report for  {{ name }}!</p>
+
 
 <!-- CSS Code: Place this code in the document's head (between the <head> -- </head> tags) -->
 <style>
@@ -17,13 +16,20 @@ table.customTable {
   border-color: #7ea8f8;
   border-style: solid;
   color: #000000;
+  /*display: block;*/
+  /*overflow: auto;*/
 }
 
 table.customTable td, table.customTable th {
   border-width: 2px;
-  border-color: #7ea8f8;
+  border-color: black;
   border-style: solid;
   padding: 5px;
+  font-size: 12px;
+  /*display: -webkit-box;*/
+  /*word-break: break-word;*/
+  /*overflow: auto;*/
+  /*display: block;*/
 }
 
 table.customTable thead {
@@ -34,7 +40,7 @@ table.customTable thead {
 <table class="customTable">
 	<thead>
 		<tr>
-			<th>#</th>
+			<th>Vehicle</th>
 			<th>Staff Name</th>
 			<th>Driver</th>
 			<th>Conductor</th>
@@ -48,7 +54,7 @@ table.customTable thead {
 	</thead>
 {% for trip in trips %}
 	<tr>
-		<td>{{trip.id}}</td>
+		<td>{{trip.number_plate}}</td>
 		<td>{{trip.staff_name}}</td>
 		<td>{{trip.driver}}</td>
 		<td>{{trip.conductor}}</td>

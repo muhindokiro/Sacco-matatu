@@ -198,7 +198,7 @@ class TheView(ModelView):
     def action_recalculate(self, ids):
 
         #trips = Trips.query.get(ids)
-        #trips = Trips.query.all()
+        # tripz = Trips.query.filter(name=trips.owners.name).all()
         trips = Trips.query.filter(Trips.id.in_(ids)).all()
         name = 'trips'
         ids = ids

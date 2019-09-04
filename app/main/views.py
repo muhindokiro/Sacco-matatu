@@ -34,7 +34,7 @@ def index():
 
     
     title = 'Home'
-    name = 'ken';
+    name = 'phil';
     return render_template('index.html',title = title, name = name)
 
 
