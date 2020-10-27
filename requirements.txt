@@ -4,7 +4,7 @@ asn1crypto==0.24.0
 blinker==1.4
 cffi==1.12.3
 Click==7.0
-cryptography==2.7
+cryptography==3.2
 DateTime==4.3
 dominate==2.4.0
 Flask==1.1.1
